@@ -1,0 +1,3 @@
+[submodule "src/LGJT-ClassLib"]
+	path = src/LGJT-ClassLib
+	url = http://lgjt.xyz:8000/johannes/LGJT-ClassLib
