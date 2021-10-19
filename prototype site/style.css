@@ -1,0 +1,17 @@
+body {margin: 0;}
+
+#header {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+
+    min-height: 50px;
+    width: 100%;
+}
+
+#header * {
+    display: flex;
+}
+
+#header * * {
+    margin: auto;
+}
