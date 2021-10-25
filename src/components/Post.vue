@@ -23,11 +23,7 @@ export default {
       components: {
             Avatar,
       },
-      data() {
-            return {
-                  img: "https://cdn.discordapp.com/attachments/828216229754830849/900730122271858698/index.jpg"
-            }
-      }
+
 }
 </script>
 
