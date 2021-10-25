@@ -1,7 +1,7 @@
 <template>
       <div class="avatar dark">
-            <img src="">
-            <span>{{user}}</span>
+            <img :src="image">
+            <span>{{username}}</span>
       </div>
 </template>
 
@@ -13,17 +13,22 @@ export default {
       name: "Avatar",
       props: {
             user_id: String,
+
       },
-      created() {
-            const headers = {"Access-Control-Allow-Origin": api_root}
-            var request = new Request(api_root+"user/get/id/"+this.user_id)
-            fetch(request, {"method": "GET", "headers": headers}).then(response => response.json).then(data => console.log(data))
-      },
-      computed: {
-            user() {
-         
-                  return "x"
+      data() {
+            return {
+            username: "",
+            image: ""
             }
+      },
+      async created() {
+            const url = api_root+'user/get/id/'+this.user_id
+            const response = await fetch(url);
+            const data = await response.json();
+            this.username = data["username"]
+            this.image = data["profile_picture"]
+            console.log(this.image)
+
       },
 }
 </script>
@@ -34,6 +39,7 @@ export default {
       max-width: 180px;
       display: flex;
       align-items: center;
+      border-radius: var(--radius);
 }
 
 .avatar img {
