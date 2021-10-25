@@ -35,6 +35,8 @@ export default {
 
 <style>
 .avatar {
+      max-height: 48px;
+      min-width: 180px;
       padding: 4px;
       max-width: 180px;
       display: flex;
