@@ -38,6 +38,7 @@ export default {
   display: flex;
   align-items: center;
   border-radius: var(--radius);
+  border: 2px solid var(--darkest)
 }
 
 #name {

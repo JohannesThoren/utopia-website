@@ -1,7 +1,7 @@
 <template>
       <div class="card dark">
             <div class="card-header darker">
-                  <Avatar :img="img" :name="author"/>
+                  <Avatar  :user_id/>
                   <span class="title center-text">{{title}}</span> 
             </div>
             <div class="card-content">

@@ -1,14 +1,18 @@
 import { createStore } from 'vuex'
+import mutations from './mutations.js'
+import actions from './actions.js'
 
 export default createStore({
   state: {
     authorized: false,
-    user_id: ""
+    user: {
+      id: String,
+      name: String,
+      image: String,
+    }
   },
-  mutations: {
-  },
-  actions: {
-  },
+  mutations: mutations,
+  actions: actions,
   modules: {
   }
 })
