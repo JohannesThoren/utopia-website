@@ -25,7 +25,6 @@ export default {
     const data = await response.json();
     this.username = data["username"];
     this.image = data["profile_picture"];
-    console.log(this.image);
   },
 };
 </script>

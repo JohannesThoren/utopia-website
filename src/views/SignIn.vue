@@ -3,7 +3,7 @@
     <div class="card-header darker">
       <div class="title center-text">Sign In</div>
     </div>
-    <div class="card-content">
+    <div class="card-content center-text">
       <input class="input" v-model="username" type="text" name="username" placeholder="Username"/>
       <br />
       <input class="input" v-model="password" type="password" name="password" placeholder="Password"/>
@@ -40,19 +40,10 @@ export default {
   width: 40%;
 }
 
-.card-content {
+#input {
   display: grid;
   align-items: center;
 }
 
-.input {
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
-}
-.button {
-  max-width: 100px;
-  margin: auto;
-  margin-top: 20px;
-}
+
 </style>

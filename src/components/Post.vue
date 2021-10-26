@@ -27,13 +27,6 @@ export default {
 }
 </script>
 
-<style scoped>
-      .card {
-            margin-top: 10px;
-      }
-      .card-header {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            align-items: center;
-      }
+<style>
+
 </style>

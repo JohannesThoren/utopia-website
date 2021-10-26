@@ -5,4 +5,12 @@
 </template>
 
 <style>
+a {
+  color: white;
+}
+
+a:visited {
+  color: white
+}
+
 </style>

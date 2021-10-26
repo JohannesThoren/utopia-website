@@ -23,11 +23,6 @@
 </template>
 
 <style>
-.input {
-  height: 60%;
-}
-
-/* #search {text-align: center;} */
 
 #header {
   display: grid;
@@ -50,10 +45,6 @@
       align-items: center;
 }
 
-.button * {
-  color: white;
-  text-decoration: none;
-}
 </style>
 
 <script>
