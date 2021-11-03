@@ -1,9 +1,9 @@
 <template>
-  <div id="signup" class="card dark">
-    <div class="card-header darker">
-      <div class="title center-text">Sign Up</div>
+  <div id="signup" class="card">
+    <div class="card-header center-text">
+      <div class="title">Sign Up</div>
     </div>
-    <div class="card-content center-text">
+    <div id="input" class="card-content center-text">
       <input
         v-model="username"
         class="input"
@@ -36,16 +36,16 @@
         id="password2"
         placeholder="Confirm Password"
       /> <br> 
-      <p class="txt-warning center-text" v-if="checkPassword == false">
+      <p class="warning-fg center-text" v-if="checkPassword == false">
         Password is not matching
       </p>
 
-      <p class="text-warning center-text" v-if="error">
+      <p class="warning-fg center-item" v-if="error">
         A user with that name already exists
       </p>
 
       <button
-        class="button button-ok"
+        class="btn ok-bg center-item"
         @click="signup()"
         v-if="checkPassword == true"
       >
@@ -106,6 +106,13 @@ export default {
 <style>
 #signup {
   width: 40%;
+  margin: auto;
 }
+
+
+#input * {
+  margin-top: 10px;
+}
+
 
 </style>

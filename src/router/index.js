@@ -24,6 +24,14 @@ const routes = [
     path: '/signup',
     name: 'SignUp',
     component: () => import('../views/SignUp.vue')
+  },
+  {
+    path: '/t/:threadId',
+    component: () => import('../views/Thread.vue')
+  },
+  {
+    path: '/t/:threadId/new',
+    component: () => import('../views/NewPost.vue')
   }
 ]
 

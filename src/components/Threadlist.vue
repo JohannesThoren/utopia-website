@@ -1,13 +1,13 @@
 <template>
-  <div id="thread-list" class="card dark">
-    <div class="card-header darker">
+  <div id="thread-list" class="card">
+    <div class="card-header">
       <div class="title">Latest Threads</div>
     </div>
     <div id="list" class="card-content">
       <div class="thread" v-for="thread in threadArray" :key="thread">
         <router-link class="thread-name" :to="'/t/'+thread['id']" >/t/{{thread["name"]}}</router-link >
-        <span class="thred-description">{{ thread["description"] }}</span>
-        <button        v-if="$store.state.authorized" class="button"> follow</button>
+        <span class="thread-descriptiom">{{ thread["description"] }}</span>
+        <button        v-if="$store.state.authorized" class="btn center-text"> follow</button>
       </div>
     </div>
   </div>
@@ -17,6 +17,11 @@
 
 #thread-list {
   width: 50%;
+  margin: auto;
+}
+
+#thread-list * {
+  margin-top: 10px;
 }
 
 .thread {

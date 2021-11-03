@@ -1,8 +1,8 @@
 <template>
-      <div class="card dark">
-            <div class="card-header darker">
-                  <Avatar  :user_id/>
-                  <span class="title center-text">{{title}}</span> 
+      <div id="post" class="card">
+            <div id="header" class="card-header">
+                  <Avatar  id="avtar" :user_id="author"/>
+                  <div class="title center-text">{{title}}</div> 
             </div>
             <div class="card-content">
                   {{content}}
@@ -27,6 +27,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+      
+#post #header {
+      display: grid;
+      grid-template-columns: 0.5fr 1.5fr;
+      align-items: center;
+}
+
 
 </style>

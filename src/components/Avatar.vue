@@ -1,5 +1,5 @@
 <template>
-  <div class="avatar dark">
+  <div class="avatar background-accent-2">
     <img :src="image" />
     <div id="name">{{ username }}</div>
   </div>
@@ -37,7 +37,7 @@ export default {
   display: flex;
   align-items: center;
   border-radius: var(--radius);
-  border: 2px solid var(--darkest)
+  border: 2px solid var(--accent-1);
 }
 
 #name {
@@ -50,7 +50,7 @@ export default {
 .avatar img {
   width: 36px;
   height: 36px;
-  border: 2px solid var(--darkest);
+  border: 2px solid var(--accent-1);
   border-radius: 100%;
   margin-left: 5px;
   margin-right: 5px;

@@ -1,26 +1,65 @@
 <template>
-      <div>
-            <Post :v-for="post in data" author="{{post[0]}}" title="{{post[1]}}" content="{{post[2]}}"/>
-      </div>
-      
+  <div id="list">
+    <button id="btn" @click="redirect_add" v-if="$store.state.authorized" class="btn center-text">
+      New Post
+    </button>
+    <Post
+      v-for="post in posts"
+      :key="post"
+      :author="post['author']"
+      :title="post['title']"
+      :content="post['content']"
+    />
+  </div>
 </template>
 
 <script>
-import Post from "./Post.vue"
+import Post from "./Post.vue";
+import { api_root } from "../globalvars";
 
 export default {
-      name: "PostList",
-      comments:  {
-            Post,
-      },
-      data() {
-            return {
-                  data: ""
-            }
-      }
-}
+  name: "PostList",
+  components: {
+    Post,
+  },
+  props: {
+    threadId: String,
+  },
+  data() {
+    return {
+      posts: [],
+    };
+  },
+  methods: {
+        redirect_add() {
+            this.$router.push(`/t/${this.$route.params.threadId}/new`);
+
+        }
+  },
+  async created() {
+    const url = `${api_root}thread/${this.$route.params.threadId}/posts/get/all`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    for (var index in data) {
+      this.posts.push(data[index]);
+    }
+  },
+};
 </script>
 
-<style>
+<style scoped>
+#list {
+  width: 50%;
+  height: 40%;
+  margin: auto;
+}
 
+#list * {
+  margin-top: 10px;
+}
+
+#btn {
+  width: 100%;
+}
 </style>
