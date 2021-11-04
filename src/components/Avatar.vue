@@ -1,8 +1,8 @@
 <template>
-  <div class="avatar background-accent-2">
+  <router-link :to="'/p/'+id" class="avatar background-accent-2">
     <img :src="image" />
     <div id="name">{{ username }}</div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -17,6 +17,7 @@ export default {
     return {
       username: "",
       image: "",
+      id: this.user_id,
     };
   },
   async created() {
@@ -29,7 +30,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .avatar {
   max-height: 48px;
   width: 200px;
@@ -38,6 +39,7 @@ export default {
   align-items: center;
   border-radius: var(--radius);
   border: 2px solid var(--accent-1);
+  text-decoration: none;
 }
 
 #name {

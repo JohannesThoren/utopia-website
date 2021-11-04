@@ -26,6 +26,10 @@ const routes = [
     component: () => import('../views/SignUp.vue')
   },
   {
+    path: '/p/:userId',
+    component: () => import('../views/Profile.vue')
+  },
+  {
     path: '/t/:threadId',
     component: () => import('../views/Thread.vue')
   },
