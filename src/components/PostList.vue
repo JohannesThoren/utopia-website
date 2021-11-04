@@ -40,6 +40,7 @@ export default {
     const url = `${api_root}thread/${this.$route.params.threadId}/posts/get/all`;
     const response = await fetch(url);
     const data = await response.json();
+    console.log(data)
 
     for (var index in data) {
       this.posts.push(data[index]);

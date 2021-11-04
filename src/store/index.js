@@ -5,6 +5,7 @@ import actions from './actions.js'
 export default createStore({
   state: {
     authorized: false,
+    postMaxChars: 1000,
     user: {
       id: String,
       name: String,
