@@ -1,3 +1,5 @@
+// TODO reverse the list of posts!!
+
 <template>
   <div id="list">
     <button id="btn" @click="redirect_add" v-if="$store.state.authorized" class="btn center-text">
