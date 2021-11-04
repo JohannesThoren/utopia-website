@@ -1,3 +1,5 @@
+// TODO add a description card for the thread, containing the thread title and description.
+
 <template>
   <div>
     <SiteHeader />
@@ -19,3 +21,10 @@ export default {
 
 };
 </script>
+
+<style scoped>
+.card {
+  margin-top: 20px;
+  width: 50%;
+}
+</style>

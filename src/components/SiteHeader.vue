@@ -2,7 +2,7 @@
   <div>
     <div id="header" class="top-bar background-accent-1">
       <div id="header-left-bar">
-            <div class="title">Utopia</div>
+        <router-link to="/" class="title">Utopia</router-link>
       </div>
       <input id="search" class="input" type="text" placeholder="Search Utopia forums" />
       <div id="header-right-bar">
