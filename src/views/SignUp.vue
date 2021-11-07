@@ -11,7 +11,7 @@
         name="name"
         id="username"
         placeholder="Username"
-      /><br>
+      /><br />
       <input
         v-model="email"
         class="input"
@@ -19,7 +19,7 @@
         name="email"
         id="email"
         placeholder="Email"
-      /><br>
+      /><br />
       <input
         v-model="pass1"
         class="input"
@@ -27,7 +27,7 @@
         name="password1"
         id="password1"
         placeholder="Password"
-      /><br>
+      /><br />
       <input
         v-model="pass2"
         class="input"
@@ -35,7 +35,8 @@
         name="password2"
         id="password2"
         placeholder="Confirm Password"
-      /> <br> 
+      />
+      <br />
       <p class="warning-fg center-text" v-if="checkPassword == false">
         Password is not matching
       </p>
@@ -56,8 +57,7 @@
 </template>
 
 <script>
-import { api_root } from "../globalvars";
-
+import { api_post_call } from "../api_calls.js";
 export default {
   data() {
     return {
@@ -70,19 +70,12 @@ export default {
   },
   methods: {
     async signup() {
-      console.log(this.name);
-
-      const url = api_root + "user/new";
       const body = {
         username: this.username,
         password: this.pass1,
         email: this.email,
       };
-      const response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(body),
-      });
-      const data = await response.json();
+      const data = await api_post_call(body, $store.state.api_root, "user/new");
 
       if (data["response code"] == 200) {
         this.$router.push("/signin");
@@ -109,10 +102,7 @@ export default {
   margin: auto;
 }
 
-
 #input * {
   margin-top: 10px;
 }
-
-
 </style>

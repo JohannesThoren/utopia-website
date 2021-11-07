@@ -40,8 +40,6 @@
 </style>
 
 <script>
-import { api_root } from "../globalvars.js";
-
 export default {
   data() {
     return {
@@ -58,6 +56,7 @@ export default {
   },
   methods: {
     async post() {
+      const api_root = $store.state.api_root
       const url = `${api_root}thread/${this.$route.params.threadId}/post/new`;
       const body = { token: this.token, title: this.title, content: this.text };
       const response = await fetch(url, {

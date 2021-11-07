@@ -4,6 +4,7 @@ import actions from './actions.js'
 
 export default createStore({
   state: {
+    api_root: "http://localhost:3500/",
     authorized: false,
     postMaxChars: 1000,
     user: {
