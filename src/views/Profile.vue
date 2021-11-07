@@ -8,9 +8,9 @@
       <img id="img" src="{{image}}" />
       <p id="description" class="background-accent-2">
         <span class="subtitle">Description</span>
-        <br>
+        <br />
         {{ description }}
-        <br>
+        <br />
         <button class="btn">Edit</button>
       </p>
     </div>
@@ -25,6 +25,7 @@
 
 <script>
 import SiteHeader from "../components/SiteHeader.vue";
+import {api_root} from "../globalvars"
 export default {
   name: "Profile",
   components: {
@@ -36,7 +37,15 @@ export default {
       name: "",
       description: "",
       posts: [],
+      currentUserId: "",
     };
+  },
+  async created() {
+    const token = this.$cookie.get("token");
+    const url = api_root + "user/get/token/" + token;
+    const response = await fetch(url);
+    const data = await response.json();
+    this.currentUserId = data["id"];
   },
 };
 </script>
@@ -76,8 +85,8 @@ export default {
 }
 
 #img {
-  width: 80%;
-  height: 80%;
+  width: 300px;
+  height: 300px;
   border: 2px solid var(--accent-1);
   border-radius: 100%;
   margin: 10px;
