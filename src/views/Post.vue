@@ -9,12 +9,14 @@
     <div id="post" class="card center-item">
       <div id="header" class="card-header">
         <Avatar :user_id="str_author_id"/>
+        <button class="btn" v-if="str_current_user_id == str_author_id && $store.state.authorized">Edit</button>
+        <router-link :to="'/b/'+str_board_id">To Board</router-link>
         <span class="title">Test</span>
       </div>
 
       <div id="content" class="card-content">
-            <pre v-if="str_flag == 'TEXT'">{{str_content}}</pre>
-            <img v-if="str_flag == 'IMAGE'" :src="str_content" alt="">
+            <pre id="text" v-if="str_flag == 'TEXT'">{{str_content}}</pre>
+            <img id="image" v-if="str_flag == 'IMAGE'" :src="str_content" alt="">
       </div>
     </div>
   </div>
@@ -32,7 +34,9 @@ export default {
               str_author_id: "",
               str_flag: "",
               str_post_id: this.$route.params.id,
-              str_content: ""
+              str_content: "",
+              str_board_id: "",
+              str_current_user_id: this.$store.state.user_id
         }
   },
   async created() {
@@ -41,11 +45,17 @@ export default {
         this.str_author_id = data["author"]
         this.str_flag = data["flag"]
         this.str_content = data["content"]
+        this.str_board_id = data["board"]
   }
 };
 </script>
 
 <style scoped>
+#image {
+  max-height: 50vh;
+  margin: auto;
+}
+
 #post {
   margin-top: 5px;
   width: 70%;

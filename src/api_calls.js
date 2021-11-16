@@ -7,35 +7,35 @@
 
 /**
  * This function is used to get data from the API server
- * @param {String} api_root 
- * @param {String} call_path 
+ * @param {String} str_api_root 
+ * @param {String} str_call_path 
  * @returns Json Object containing the data you made a request for or an error code
  */
 
-export async function api_get_call(api_root, call_path) {
-    const response = await fetch(api_root + call_path);
-    const data = await response.json();
-    return data
+export async function api_get_call(str_api_root, str_call_path) {
+    const prom_response = await fetch(str_api_root + str_call_path);
+    const json_data = await prom_response.json();
+    return json_data
 }
 
 /**
  * 
- * @param {JSON} body 
- * @param {String} api_root 
- * @param {String} call_path 
+ * @param {JSON} json_body 
+ * @param {String} str_api_root 
+ * @param {String} str_call_path 
  * @returns A Message or some json data depending on waht the api call is 
  */
-export async function api_post_call(body, api_root, call_path) {
-    const response = await fetch(api_root + call_path, { 
+export async function api_post_call(json_body, str_api_root, str_call_path) {
+    const prom_response = await fetch(str_api_root + str_call_path, { 
         method: "POST", 
-        body: JSON.stringify(body)
+        body: JSON.stringify(json_body)
     });
-    const data = await response.json();
-    return data
+    const json_data = await prom_response.json();
+    return json_data
 }
 
-export async function token_authorize(token, api_root) {
-    const response = await fetch(api_root+"user/get/token/"+token)
-    const data = await response.json()
-    return data
+export async function token_authorize(str_token, str_api_root) {
+    const prom_response = await fetch(str_api_root+"user/get/token/"+str_token)
+    const json_data = await prom_response.json()
+    return json_data
 } 
