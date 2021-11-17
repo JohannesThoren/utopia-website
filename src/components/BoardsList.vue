@@ -12,16 +12,17 @@
     <div id="list" class="card-content">
       <div class="board" v-for="board in boardArray" :key="board">
         <router-link class="board-name" :to="'/b/'+board['id']" >{{board["name"]}}</router-link >
-        <span class="board-descriptiom">{{ board["description"] }}</span>
-        <div class="btn-group">
-          <button class="btn"><span class="material-icons-outlined">bookmark</span></button>
-        </div>
+        <div></div>
+          <button v-if="!fn_is_board_followed(board['id'])" @click="fn_follow(board['id'])" class="btn">Follow</button>
+          <button v-if="fn_is_board_followed(board['id'])"  @click="fn_unfollow(board['id'])" class="btn warning-bg">Unfollow</button> 
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+
+#actions {margin-left: auto}
 
 #board-list {
   width: 50%;
@@ -48,27 +49,55 @@
 </style>
 
 <script>
-import { api_get_call } from "../api_calls.js";
+import { api_get_call, api_post_call } from "../api_calls.js";
 
 export default {
   name: "Boards",
   data() {
     return {
       boardArray: [],
+      arr_user_following: []
     };
   },
+  methods: {
+    fn_is_board_followed(id) {
+      if (this.arr_user_following.includes(id)) return true
+      else return false;
+    },
+
+    async fn_follow(id) {
+      const body = {"token": this.$cookie.get("token")}
+      const resp = await api_post_call(body, this.$store.state.api_root, `board/${id}/follow`)
+      this.$router.go()
+      return resp
+    },
+
+    async fn_unfollow(id) {
+      const body = {"token": this.$cookie.get("token")}
+      const resp = await api_post_call(body, this.$store.state.api_root, `board/${id}/unfollow`)
+      this.$router.go()
+      return resp
+    }
+  },
   async created() {
-    const data = await api_get_call(this.$store.state.api_root, "boards/get/all");
+    const arr_boards = await api_get_call(this.$store.state.api_root, "boards/get/all");
 
     // converting the json data to an array by looping through,
     // all the objects and the pushing them to
-    for (var index in data) {
-      this.boardArray.push(data[index]);
+    for (var i in arr_boards) {
+      this.boardArray.push(arr_boards[i]);
     }
 
     // we reverese it to be able to get the latest boards easier
     this.boardArray.reverse();
     console.log(this.boardArray);
+
+    if (this.$store.state.authorized) {
+      const json_user = await api_get_call(this.$store.state.api_root, "user/get/token/"+this.$cookie.get("token"))
+      for(var j in json_user["following"]) {
+        this.arr_user_following.push(json_user["following"][j])
+      }
+    }
   },
 };
 </script>

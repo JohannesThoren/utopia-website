@@ -12,5 +12,4 @@ import router from './router'
 import store from './store'
 import cookie from './plugins/cookie'
 
-
-export const app = createApp(App).use(cookie).use(store).use(router).use(cookie).mount('#app')
+export const app = createApp(App).use(store).use(router).use(cookie).mount('#app')
