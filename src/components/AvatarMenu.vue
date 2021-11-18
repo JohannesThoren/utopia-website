@@ -8,9 +8,9 @@
 <div id="container" @mouseover="b_show_menu = true" @mouseleave="b_show_menu = false">
       <Avatar id="avatar" :user_id="id"/>
       <ul v-if="b_show_menu" id="menu" class="card shadow">
-            <li>Settings</li>
+            <li><router-link to="/settings"><i class="fas fa-cog"></i> Settings</router-link></li>
             <li>Theme</li>
-            <li><button class="btn warning-bg" @click="fn_on_sign_out()">Sign Out</button></li>
+            <li><button class="btn warning-bg" @click="fn_on_sign_out(); this.$router.go()">Sign Out</button></li>
 
       </ul>
 </div>
@@ -38,6 +38,9 @@ export default {
 </script>
 
 <style scoped>
+
+a {text-decoration: none}
+a:hover {text-decoration: underline}
 
 li {
       margin-bottom: 5px;

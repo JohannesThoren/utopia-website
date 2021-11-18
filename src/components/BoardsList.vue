@@ -12,7 +12,7 @@
     <div id="list" class="card-content">
       <div class="board" v-for="board in boardArray" :key="board">
         <router-link class="board-name" :to="'/b/'+board['id']" >{{board["name"]}}</router-link >
-        <div></div>
+        <div><i class="fas fa-user-friends"></i> Followers {{board['followers']}}</div>
           <button v-if="!fn_is_board_followed(board['id'])" @click="fn_follow(board['id'])" class="btn">Follow</button>
           <button v-if="fn_is_board_followed(board['id'])"  @click="fn_unfollow(board['id'])" class="btn warning-bg">Unfollow</button> 
       </div>
@@ -84,6 +84,7 @@ export default {
 
     // converting the json data to an array by looping through,
     // all the objects and the pushing them to
+    console.log(arr_boards)
     for (var i in arr_boards) {
       this.boardArray.push(arr_boards[i]);
     }
@@ -94,6 +95,7 @@ export default {
 
     if (this.$store.state.authorized) {
       const json_user = await api_get_call(this.$store.state.api_root, "user/get/token/"+this.$cookie.get("token"))
+      console.log(json_user)
       for(var j in json_user["following"]) {
         this.arr_user_following.push(json_user["following"][j])
       }

@@ -16,7 +16,7 @@
 
       <div id="content" class="card-content">
             <pre id="text" v-if="str_flag == 'TEXT'">{{str_content}}</pre>
-            <img id="image" v-if="str_flag == 'IMAGE'" :src="str_content" alt="">
+            <img id="image" v-if="str_flag == 'IMAGE'" :src="str_content" alt="x">
       </div>
     </div>
   </div>
@@ -36,7 +36,7 @@ export default {
               str_post_id: this.$route.params.id,
               str_content: "",
               str_board_id: "",
-              str_current_user_id: this.$store.state.user_id
+              str_current_user_id: this.$store.state.user["id"]
         }
   },
   async created() {
@@ -58,7 +58,7 @@ export default {
 
 #post {
   margin-top: 5px;
-  width: 70%;
+  width: 50%;
 }
 #header {
   display: flex;

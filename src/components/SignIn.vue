@@ -66,6 +66,7 @@ export default {
     async login(credentials) {
       if (await this.loginAction(credentials)) {
         this.$emit("close-signin");
+        this.$router.go()
       } else {
         this.b_show_error = true;
         this.username = "";

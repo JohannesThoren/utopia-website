@@ -14,7 +14,7 @@
       v-if="$store.state.authorized"
       class="btn center-text"
     >
-      New Post
+      <i class="fas fa-pencil-alt"></i> New Post
     </button>
     <Post
       v-for="post in posts"

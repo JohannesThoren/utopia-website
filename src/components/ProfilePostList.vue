@@ -21,6 +21,7 @@
       :title="post['title']"
       :content="post['content']"
       :flag="post['flag']"
+      :id="post['id']"
     />
   </div>
 </template>

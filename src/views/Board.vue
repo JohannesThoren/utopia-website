@@ -20,8 +20,9 @@
           {{str_board_description}}
         </pre>
 
-        <p>Owner: <router-link :to="'/p/'+str_board_owner_id">{{str_board_owner}}</router-link></p>
-        <p>board created: {{str_board_created}}</p>
+        <p><i class="fas fa-at"></i> Owner: <router-link :to="'/p/'+str_board_owner_id">{{str_board_owner}}</router-link></p>
+        <p><i class="far fa-clock"></i> Board created: {{str_board_created}}</p>
+        <p><i class="fas fa-user-friends"></i> Followers: {{int_board_followers}}</p>
       </div>
       
     </div>
@@ -54,7 +55,8 @@ export default {
       str_board_owner: "",
       str_board_owner_id: "",
       str_board_created: "",
-      str_board_description: ""
+      str_board_description: "",
+      int_board_followers: 0
    }
   },
   async created() {
@@ -63,6 +65,7 @@ export default {
     this.str_board_created = data["created"]
     this.str_board_owner_id = data["owner"]
     this.str_board_description = data["description"]
+    this.int_board_followers = data["followers"]
 
     let owner = await api_get_call(this.$store.state.api_root, `user/get/id/${this.str_board_owner_id}`)
     this.str_board_owner = owner["username"]
