@@ -25,7 +25,6 @@ export default {
 		};
 	},
 	async created() {
-		console.log(this.user_id);
 		setTimeout(async () => {
 			let id = this.user_id;
 			const data = await api_get_call(

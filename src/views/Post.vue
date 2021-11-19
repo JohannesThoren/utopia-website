@@ -9,8 +9,10 @@
     <div id="post" class="card center-item">
       <div id="header" class="card-header">
         <Avatar :user_id="str_author_id"/>
+        <div class="btn-group">
         <button class="btn" v-if="str_current_user_id == str_author_id && $store.state.authorized">Edit</button>
-        <router-link :to="'/b/'+str_board_id">To Board</router-link>
+        <router-link :to="'/b/'+str_board_id" class="btn btn-hollow">To Board</router-link>
+        </div>
         <span class="title">Test</span>
       </div>
 
@@ -71,6 +73,8 @@ export default {
   margin-left: 10px;
   margin-right: 10px;
 }
+
+#header .btn {margin: 0}
 
 #content {
   display: grid;

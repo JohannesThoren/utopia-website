@@ -53,8 +53,6 @@ export default {
       this.$store.state.api_root,
       `board/${this.$route.params.id}/posts/get/all`
     );
-
-    console.log(data)
     for (var index in data) {
       this.posts.push(data[index]);
     }

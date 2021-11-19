@@ -51,9 +51,9 @@ export default {
     let token = this.$cookie.get("token")
     if(token != null) {
       let data = await token_authorize(token, this.$store.state.api_root)
-      console.log(data)
       this.$store.commit('authorized')
       this.$store.commit('set_user', [data["id"], data["username"], data["image"]])
+      this.$cookie.set("token", data["token"])
     }
   }
 };

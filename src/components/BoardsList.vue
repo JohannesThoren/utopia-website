@@ -118,14 +118,12 @@ export default {
 
 		// we reverese it to be able to get the latest boards easier
 		this.boardArray.reverse();
-		console.log(this.boardArray);
 
 		if (this.$store.state.authorized) {
 			const json_user = await api_get_call(
 				this.$store.state.api_root,
 				"user/get/token/" + this.$cookie.get("token")
 			);
-			console.log(json_user);
 			for (var j in json_user["following"]) {
 				this.arr_user_following.push(json_user["following"][j]);
 			}
