@@ -24,15 +24,6 @@
 
 #actions {margin-left: auto}
 
-#board-list {
-  width: 50%;
-  margin: auto;
-}
-
-#board-list{
-  margin-top: 10px;
-}
-
 .title {margin: 0px}
 
 .board {
@@ -52,7 +43,7 @@
 import { api_get_call, api_post_call } from "../api_calls.js";
 
 export default {
-  name: "Boards",
+  name: "BoardsList",
   data() {
     return {
       boardArray: [],

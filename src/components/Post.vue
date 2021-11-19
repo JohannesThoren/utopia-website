@@ -8,12 +8,11 @@
   <div id="post" class="card">
     <div id="header" class="card-header">
       <Avatar id="avtar" :user_id="author" />
-      <button
-        class="btn"
-        v-if="currentUserId == author && $store.state.authorized"
-      >
-        Edit
-      </button>
+      <div class="btn-group">
+        <button class="btn" v-if="currentUserId == author && $store.state.authorized"> Edit </button>
+        <router-link class="btn btn-hollow" :to="'/b/'+board">To board</router-link>
+        
+      </div>
       <router-link :to="'/post/'+id" class="title center-text">{{ title }}</router-link>
     </div>
     <div id="content" class="card-content">
@@ -40,7 +39,8 @@ export default {
     title: String,
     content: String,
     flag: String,
-    id: String
+    id: String,
+    board_id: String,
   },
   components: {
     Avatar,
@@ -88,7 +88,14 @@ export default {
   box-shadow: var(--shadow);
 }
 
-#header * {
-  margin: 5px
+.avatar {
+    margin: 10px;
 }
+
+.title {
+  margin: 10px;
+  font-size: 1.5em;
+  text-decoration: none;
+}
+
 </style>

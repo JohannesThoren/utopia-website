@@ -24,6 +24,7 @@
       :content="post['content']"
       :flag="post['flag']"
       :id="post['id']"
+      :board_id="post['board']"
     />
   </div>
 </template>

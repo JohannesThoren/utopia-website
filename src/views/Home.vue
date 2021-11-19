@@ -5,17 +5,33 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 <template>
-  <div class="home">
-    <ThreadList/>
+  <div id="home">
+    <div id="side" class="card"></div>
+    <BoardsList/>
+    <div  id="side" class="card"></div>
   </div>
 </template>
 
 <script>
-import ThreadList from '../components/BoardsList.vue'
+import BoardsList from '../components/BoardsList.vue'
 export default {
   name: 'Home',
   components: {
-    ThreadList
+    BoardsList
   }
 }
 </script>
+
+<style scoped>
+  #side {
+    margin: auto;
+    width: 80%;
+    margin-top: 0;
+  }
+  #home {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 0.5fr;
+    margin-top: 10px;
+    justify-content:baseline;
+  }
+</style>
