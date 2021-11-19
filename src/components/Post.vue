@@ -9,7 +9,7 @@
     <div id="header" class="card-header">
       <Avatar id="avtar" :user_id="author" />
       <div class="btn-group">
-        <button class="btn" v-if="currentUserId == author && $store.state.authorized"> Edit </button>
+        <button class="btn" v-if="currentUserId == author && $store.state.authorized"><i class="fas fa-edit"></i>Edit</button>
         <router-link class="btn btn-hollow" :to="'/b/'+board">To board</router-link>
         
       </div>

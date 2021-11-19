@@ -7,25 +7,56 @@
 <template>
   <div id="home">
     <div id="side" class="card"></div>
-    <BoardsList/>
-    <div  id="side" class="card"></div>
+    <div>
+      <Post
+      v-for="post in posts"
+      :key="post"
+      :author="post['author']"
+      :title="post['title']"
+      :content="post['content']"
+      :flag="post['flag']"
+      :id="post['id']"
+      :board_id="post['board']"/>
+    </div>
+    <BoardsList id="side"/>
   </div>
 </template>
 
 <script>
 import BoardsList from '../components/BoardsList.vue'
+import Post from '../components/Post.vue'
+import { api_get_call } from "../api_calls";
+
 export default {
   name: 'Home',
   components: {
-    BoardsList
+    BoardsList,
+    Post,
+  },
+  data() {
+    return {
+      posts: []
+    }
+  },
+  async created() {
+    const data = await api_get_call(
+      this.$store.state.api_root,
+      `/get/10/global/posts`
+    );
+
+      for (var index in data) {
+        this.posts.push(data[index]);
+      }
+
   }
+
 }
 </script>
 
 <style scoped>
   #side {
     margin: auto;
-    width: 80%;
+    width: 95%;
     margin-top: 0;
   }
   #home {

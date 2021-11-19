@@ -8,11 +8,11 @@
   <div>
     <SiteHeader />
     <div id="wrapper">
-      <div id="user-profile" class="card center-item">
+      <div id="side" class="card center-item">
         <div class="card-header">
           <div class="title center-text">{{ name }}'s Info</div>
         </div>
-        <div id="left-bar-content " class="center-text card-content">
+        <div class="center-text card-content">
           <img id="img" :src="image" />
           <pre id="description" class="background-accent-2">
             <span class="subtitle">Description</span>
@@ -22,7 +22,7 @@
         </div>
       </div>
       <ProfilePostList/>
-      <div id="user-owned-boards" class="card center-item">
+      <div id="side" class="card center-item">
         <div class="card-header">
           <div class="title center-text">{{name}}'s Boards</div>
         </div>
@@ -78,8 +78,8 @@ export default {
   width: 100%;
 }
 
-#user-profile {
-  width: 80%;
+#side {
+    width: 95%;
 }
 
 #description {
@@ -99,9 +99,6 @@ export default {
 #wrapper {
   display: grid;
   grid-template-columns: 0.5fr 1fr 0.5fr;
-}
-#user-owned-boards {
-  width:80%;
 }
 
 
