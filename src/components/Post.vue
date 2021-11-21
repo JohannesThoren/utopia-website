@@ -88,12 +88,11 @@ export default {
   box-shadow: var(--shadow);
 }
 
-.avatar {
-    margin: 10px;
-}
+
+#header * {margin-left: 10px; margin-right: 10px}
+#header .btn {margin: 0}
 
 .title {
-  margin: 10px;
   font-size: 1.5em;
   text-decoration: none;
 }

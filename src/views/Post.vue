@@ -58,15 +58,18 @@ export default {
   margin: auto;
 }
 
+.title {font-size: 1.5em}
+
 #post {
-  margin-top: 5px;
+  margin-top: 10px;
   width: 50%;
 }
 #header {
+  padding: var(--padding-medium);
   display: flex;
-  box-shadow: var(--shadow);
-  padding: var(--padding-large);
+  grid-template-columns: 0.5fr 1.5fr 0.5fr;
   align-items: center;
+  box-shadow: var(--shadow);
 }
 
 #header * {
