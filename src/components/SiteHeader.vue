@@ -46,11 +46,16 @@
 
 
 #header {
+  top: 0;
+  position: fixed;
+  background-color: white;
+  z-index: 50;
   display: grid;
   grid-template-columns: 0.5fr 1fr 0.5fr;
   height: 60px;
   padding: 5px;
   align-items: center;
+  width: 100vw;
 }
 
 #header-right-bar {

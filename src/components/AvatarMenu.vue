@@ -5,14 +5,15 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 <template>
-<div id="container" @mouseover="b_show_menu = true" @mouseleave="b_show_menu = false">
-      <Avatar id="avatar" :user_id="id"/>
-      <ul v-if="b_show_menu" id="menu" class="card shadow">
-            <li><router-link to="/settings"><i class="fas fa-cog"></i> Settings</router-link></li>
-            <li>Theme</li>
-            <li><button class="btn warning-bg" @click="fn_on_sign_out(); this.$router.go()">Sign Out</button></li>
+<div>
 
-      </ul>
+      <div id="container" @mouseover="b_show_menu = true" @mouseleave="b_show_menu = false">
+            <Avatar id="avatar" :user_id="id"/>
+            <ul v-if="b_show_menu" id="menu" class="card shadow">
+                  <li><button class="btn warning-bg" @click="fn_on_sign_out(); this.$router.go()">Sign Out</button></li>
+
+            </ul>      
+      </div>
 </div>
 </template>
 

@@ -17,11 +17,14 @@
       @close-new-board="b_show_new_board = false"
     />
     <SiteHeader
+    id="header"
       @show-signup="b_show_sign_up = true"
       @show-signin="b_show_sign_in = true"
       @show-new-board="b_show_new_board = true"
     />
-    <router-view />
+    <div id="view">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -65,3 +68,8 @@ export default {
 };
 </script>
 
+<style scoped>
+#view {
+  padding-top: 8vh;
+}
+</style>
