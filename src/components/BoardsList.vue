@@ -9,35 +9,14 @@ http://mozilla.org/MPL/2.0/.
 			<div class="title center-text">New Boards</div>
 		</div>
 		<div id="list" class="card-content">
-			<div class="board" v-for="board in boardArray" :key="board">
-				<router-link class="board-name" :to="'/b/' + board['id']">{{
-					board["name"]
-				}}</router-link>
-				<div>
-					<i class="fas fa-user-friends"></i>
-					{{ board["followers"] }}
-				</div>
-				<button
-					v-if="
-						$store.state.authorized &&
-						!fn_is_board_followed(board['id'])
-					"
-					@click="fn_follow(board['id'])"
-					class="btn"
-				>
-					Follow
-				</button>
-				<button
-					v-if="
-						$store.state.authorized &&
-						fn_is_board_followed(board['id'])
-					"
-					@click="fn_unfollow(board['id'])"
-					class="btn warning-bg"
-				>
-					Unfollow
-				</button>
-			</div>
+			<BoardLink
+				v-for="board in arr_boards"
+				:key="board.name"
+				:bool_user_following="fn_is_board_followed(board.id)"
+				:str_board_name="board.name"
+				:str_board_id="board.id"
+				:num_board_followers="board.followers"
+			/>
 		</div>
 	</div>
 </template>
@@ -50,84 +29,44 @@ http://mozilla.org/MPL/2.0/.
 .title {
 	margin: 0px;
 }
-
-.board {
-	display: grid;
-	align-items: center;
-	grid-template-columns: 1fr 0.4fr 1fr;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-.board-name {
-	font-size: 1em;
-}
 </style>
 
 <script>
-import { api_get_call, api_post_call } from "../api_calls.js";
-
+import BoardLink from "./BoardLink.vue";
+import { api_get_call } from "../api_calls";
 export default {
 	name: "BoardsList",
+	components: { BoardLink },
 	data() {
 		return {
-			boardArray: [],
 			arr_user_following: [],
+			x: 0,
 		};
+	},
+	props: {
+		arr_boards: Array,
 	},
 	methods: {
 		fn_is_board_followed(id) {
 			if (this.arr_user_following.includes(id)) return true;
 			else return false;
 		},
-
-		async fn_follow(id) {
-			const body = { token: this.$cookie.get("token") };
-			const resp = await api_post_call(
-				body,
-				this.$store.state.api_root,
-				`board/${id}/follow`
-			);
-			this.$router.go();
-			return resp;
-		},
-
-		async fn_unfollow(id) {
-			const body = { token: this.$cookie.get("token") };
-			const resp = await api_post_call(
-				body,
-				this.$store.state.api_root,
-				`board/${id}/unfollow`
-			);
-			this.$router.go();
-			return resp;
-		},
 	},
-	async created() {
-		const arr_boards = await api_get_call(
-			this.$store.state.api_root,
-			"boards/get/all"
-		);
+	async mounted() {
+		setTimeout(async () => {
+			if (this.$store.state.authorized) {
+				const json_user = await api_get_call(
+					this.$store.state.api_root,
+					"user/get/token/" + this.$cookie.get("token")
+				);
 
-		// converting the json data to an array by looping through,
-		// all the objects and the pushing them to
-		console.log(arr_boards);
-		for (var i in arr_boards) {
-			this.boardArray.push(arr_boards[i]);
-		}
-
-		// we reverese it to be able to get the latest boards easier
-		this.boardArray.reverse();
-
-		if (this.$store.state.authorized) {
-			const json_user = await api_get_call(
-				this.$store.state.api_root,
-				"user/get/token/" + this.$cookie.get("token")
-			);
-			for (var j in json_user["following"]) {
-				this.arr_user_following.push(json_user["following"][j]);
+				for (var j in json_user["following"]) {
+					console.log(j);
+					console.log(json_user["following"][j]);
+					this.arr_user_following.push(json_user["following"][j]);
+				}
 			}
-		}
+		}, 500);
 	},
 };
 </script>

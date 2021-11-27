@@ -55,6 +55,7 @@ export default {
 <style scoped>
 #image {
   max-height: 50vh;
+  max-width: 100%;
   margin: auto;
 }
 

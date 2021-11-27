@@ -67,6 +67,7 @@ export default {
   margin-bottom: 10px;
   min-height: 25vh;
   max-height: 50vh;
+  max-width: 50vw;
   overflow-y: hidden;
 }
 

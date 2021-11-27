@@ -70,6 +70,7 @@ export default {
 
 <style scoped>
 #view {
+  padding: var(--padding-small);
   padding-top: 8vh;
 }
 </style>

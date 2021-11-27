@@ -18,7 +18,7 @@
       :id="post['id']"
       :board_id="post['board']"/>
     </div>
-    <BoardsList id="side"/>
+    <BoardsList id="side" :arr_boards="new_boards"/>
   </div>
 </template>
 
@@ -35,7 +35,8 @@ export default {
   },
   data() {
     return {
-      posts: []
+      posts: [],
+      new_boards: []
     }
   },
   async created() {
@@ -48,21 +49,23 @@ export default {
         this.posts.push(data[index]);
       }
 
-  }
+    const boards = await api_get_call(this.$store.state.api_root, 'boards/get/all')
+    for(let board in boards) {
+      this.new_boards.push(boards[board])
+    }
+
+}
 
 }
 </script>
 
 <style scoped>
-  #side {
-    margin: auto;
-    width: 95%;
-    margin-top: 0;
-  }
-  #home {
+#side {width: 98%; height: 60vh}
+
+#home {
     display: grid;
     grid-template-columns: 0.5fr 1fr 0.5fr;
-    margin-top: 10px;
     justify-content:baseline;
+    gap: 10px;
   }
 </style>

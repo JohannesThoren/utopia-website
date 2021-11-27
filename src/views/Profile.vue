@@ -21,39 +21,22 @@ http://mozilla.org/MPL/2.0/.
 				</div>
 			</div>
 			<ProfilePostList />
-			<div id="side" class="card center-item">
-				<div class="card-header">
-					<div class="title center-text">{{ name }}'s Boards</div>
-					<div class="card-content">
-						<div v-for="board in boards" :key="board.name">
-							<div id="board">
-								<router-link
-									class="board-name"
-									:to="'/b/' + board['id']"
-									>{{ board["name"] }}</router-link
-								>
-								<div id="followers">
-									<i class="fas fa-user-friends"></i>
-									Followers
-									{{ board["followers"] }}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<BoardsList class="center-item" id="side" :arr_boards="arr_boards"/>
+
 		</div>
 	</div>
 </template>
 
 <script>
 import ProfilePostList from "../components/ProfilePostList.vue";
+import BoardsList from "../components/BoardsList.vue"
 import { api_get_call } from "../api_calls.js";
 
 export default {
 	name: "Profile",
 	components: {
 		ProfilePostList,
+		BoardsList
 	},
 	data() {
 		return {
