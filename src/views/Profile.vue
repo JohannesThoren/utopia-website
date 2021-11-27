@@ -21,7 +21,7 @@ http://mozilla.org/MPL/2.0/.
 				</div>
 			</div>
 			<ProfilePostList />
-			<BoardsList class="center-item" id="side" :arr_boards="arr_boards"/>
+			<BoardsList class="center-item" :title="'Boards Owned By '+name" id="side" :arr_boards="arr_boards"/>
 
 		</div>
 	</div>
@@ -87,21 +87,17 @@ export default {
 
 <style scoped>
 .card {
-	margin-top: 10px;
+	margin-top: 0;
 	width: 100%;
 }
 
 #followers {text-align: center;}
 
-#side {
-	width: 95%;
-}
 
 #description {
 	display: grid;
 	text-align: left;
 	border-left: 4px solid var(--accent-2);
-	padding: 5px;
 }
 
 #img {
@@ -114,6 +110,7 @@ export default {
 #wrapper {
 	display: grid;
 	grid-template-columns: 0.5fr 1fr 0.5fr;
+	gap: 10px;
 }
 .title {
 	margin: 0px;

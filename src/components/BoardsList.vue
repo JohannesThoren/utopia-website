@@ -6,7 +6,7 @@ http://mozilla.org/MPL/2.0/.
 <template>
 	<div id="board-list" class="card">
 		<div class="card-header">
-			<div class="title center-text">New Boards</div>
+			<div class="title center-text">{{title}}</div>
 		</div>
 		<div id="list" class="card-content">
 			<BoardLink
@@ -45,6 +45,7 @@ export default {
 	},
 	props: {
 		arr_boards: Array,
+		title: String
 	},
 	methods: {
 		fn_is_board_followed(id) {

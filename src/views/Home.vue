@@ -5,7 +5,7 @@ http://mozilla.org/MPL/2.0/.
 
 <template>
 	<div id="home">
-		<div id="side" class="card"></div>
+		<BoardsList id="side" :arr_boards="top_boards" title="Top Followed Boards"/>
 		<div>
 			<Post
 				v-for="post in posts"
@@ -18,7 +18,7 @@ http://mozilla.org/MPL/2.0/.
 				:board_id="post['board']"
 			/>
 		</div>
-		<BoardsList id="side" :arr_boards="new_boards" />
+		<BoardsList id="side" :arr_boards="new_boards" title="New Boards"/>
 	</div>
 </template>
 
@@ -37,6 +37,8 @@ export default {
 		return {
 			posts: [],
 			new_boards: [],
+			top_boards: [],
+			followed_boards: [],
 		};
 	},
 	async created() {
@@ -49,12 +51,18 @@ export default {
 			this.posts.push(data[index]);
 		}
 
-		const boards = await api_get_call(
+		const boards_new = await api_get_call(
 			this.$store.state.api_root,
 			"boards/get/all"
 		);
-		for (let board in boards) {
-			this.new_boards.push(boards[board]);
+		for (let board in boards_new) {
+			this.new_boards.push(boards_new[board]);
+		}
+
+		const boards_top = await api_get_call(this.$store.state.api_root, `/boards/10/top`)
+
+		for (let board in boards_top) {
+			this.top_boards.push(boards_top[board])
 		}
 	},
 };

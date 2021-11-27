@@ -69,9 +69,6 @@ export default {
   margin: auto;
 }
 
-#list * {
-  margin-top: 10px;
-}
 
 #btn {
   width: 100%;

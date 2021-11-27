@@ -57,7 +57,6 @@ export default {
 
 <style scoped>
 #list * {
-	margin-top: 10px;
 	width: 100%;
 }
 </style>
