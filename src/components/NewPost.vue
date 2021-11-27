@@ -12,6 +12,7 @@
         <div class="title center-text">Create a New Post</div>
       </div>
       <div class="card-content">
+        <div class="center-text warning-fg">{{str_error_info}}</div>
         <div>Post type: <span class="ok-fg">{{str_post_flag}}</span></div>
         <div class="btn-group">
           <button @click="fn_change_flag('TEXT')" class="btn">Text</button>
@@ -84,7 +85,7 @@ export default {
       content: "",
       title: "",
       str_post_flag: "TEXT",
-
+      str_error_info: ""
     };
   },
   computed: {
@@ -101,8 +102,13 @@ export default {
         `board/${this.$route.params.id}/post/new`
       );
       console.log(data);
-      this.$emit('close-new-post')
-      this.$router.go()
+      if(data["response code"] == 200) {
+        this.$emit('close-new-post')
+        this.$router.go()
+      }
+      else {
+        this.str_error_info = data["msg"]
+      }
     },
 
     fn_change_flag(flag) {
