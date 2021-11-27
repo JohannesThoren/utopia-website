@@ -10,8 +10,8 @@
       <Avatar id="avtar" :user_id="author" />
       <div class="btn-group">
         <button class="btn" v-if="currentUserId == author && $store.state.authorized"><i class="fas fa-edit"></i>Edit</button>
+        <button class="btn warning-bg" v-if="currentUserId == author && $store.state.authorized" @click="fn_delete">Delete</button>
         <router-link class="btn btn-hollow" :to="'/b/'+board_id">To board</router-link>
-        
       </div>
       <router-link :to="'/post/'+id" class="title center-text">{{ title }}</router-link>
     </div>
@@ -24,7 +24,7 @@
 
 <script>
 import Avatar from "./Avatar.vue";
-import { api_get_call } from "../api_calls";
+import { api_get_call, api_post_call } from "../api_calls";
 
 export default {
   name: "Post",
@@ -44,6 +44,13 @@ export default {
   },
   components: {
     Avatar,
+  },
+  methods: {
+    async fn_delete() {
+      const data = await api_post_call({"token": this.$cookie.get("token")}, this.$store.state.api_root, `post/${this.id}/delete`)
+      console.log(data)
+      this.$router.go()
+    }
   },
   async created() {
     const token = this.$cookie.get("token");

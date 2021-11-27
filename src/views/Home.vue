@@ -61,16 +61,12 @@ export default {
 </script>
 
 <style scoped>
-#side {
-	width: 98%;
-	height: 60vh;
-	margin: auto;
-}
+
+#side {height: fit-content}
 
 #home {
 	display: grid;
 	grid-template-columns: 0.5fr 1fr 0.5fr;
-	justify-content: baseline;
 	gap: 10px;
 }
 </style>
