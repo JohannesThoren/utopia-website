@@ -93,6 +93,7 @@ export default {
 
       if (data["response code"] == 200) {
         this.$emit("close-signup");
+        this.$emit("show-signin")
       } else {
         this.error = true;
       }

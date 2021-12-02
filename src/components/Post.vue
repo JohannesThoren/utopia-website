@@ -10,7 +10,7 @@
       <Avatar id="avtar" :user_id="author" />
       <div class="btn-group">
         <button class="btn" v-if="currentUserId == author && $store.state.authorized"><i class="fas fa-edit"></i>Edit</button>
-        <button class="btn warning-bg" v-if="currentUserId == author && $store.state.authorized" @click="fn_delete">Delete</button>
+        <button class="btn warning-bg" v-if="currentUserId == author && $store.state.authorized" @click="fn_delete"><i class="fas fa-trash-alt"></i>Delete</button>
         <router-link class="btn btn-hollow" :to="'/b/'+board_id">To board</router-link>
       </div>
       <router-link :to="'/post/'+id" class="title center-text">{{ title }}</router-link>

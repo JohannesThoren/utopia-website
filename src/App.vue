@@ -11,7 +11,7 @@
       @show-signup="b_show_sign_up = true"
       @close-signin="b_show_sign_in = false"
     />
-    <SignUp v-if="b_show_sign_up" @close-signup="b_show_sign_up = false" />
+    <SignUp v-if="b_show_sign_up" @close-signup="b_show_sign_up = false" @show-signin="b_show_sign_in = true"/>
     <NewBoard
       v-if="b_show_new_board"
       @close-new-board="b_show_new_board = false"
