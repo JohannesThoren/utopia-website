@@ -57,7 +57,7 @@ containing the board title and description.
 			<PostList
 				id="posts"
 				@new-post="b_show_new_post = true"
-				:posts="arr_posts"
+				:post_list="arr_posts"
 			/>
 			<NewPost
 				v-if="b_show_new_post"

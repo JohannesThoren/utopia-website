@@ -4,7 +4,7 @@ distributed with this // file, You can obtain one at
 http://mozilla.org/MPL/2.0/. // TODO reverse the list of posts!!
 
 <template>
-	<div id="list">
+	<div id="list" ref="list" v-if="posts[0] != null">
 		<Post
 			v-for="post in posts"
 			:key="post"
@@ -15,6 +15,10 @@ http://mozilla.org/MPL/2.0/. // TODO reverse the list of posts!!
 			:id="post['id']"
 			:board_id="post['board']"
 		/>
+	</div>
+
+	<div v-else>
+		<p>There are no posts yet!</p>
 	</div>
 </template>
 
@@ -33,19 +37,66 @@ export default {
 		Post,
 	},
 	props: {
-		posts: Array,
+		post_list: Array,
 	},
+	mounted() {
+		window.addEventListener("scroll", this.handleScroll);
+	},
+	unmounted() {
+		window.removeEventListener("scroll", this.handleScroll);
+	},
+	methods: {
+		loadInitial() {
+			if (this.post_list[0] == null) {
+				setTimeout(() => {
+					for (let i = 0; i < 5; i++) {
+						let post = this.post_list[this.post_index];
+						console.log(post);
+						this.posts_to_load.push(post);
+						if (this.post_index < this.post_list.length) {
+							this.post_index += 1;
+						}
+					}
+				}, 1000);
+			} else {
+				for (let i = 0; i < 5; i++) {
+					let post = this.post_list[this.post_index];
+					console.log(post);
+					this.posts_to_load.push(post);
+					if (this.post_index < this.post_list.length) {
+						this.post_index += 1;
+					}
+				}
+			}
+		},
+		loadMore() {
+			if (this.post_index != this.post_list.length) {
+				this.posts_to_load.push(this.post_list[this.post_index]);
+				if (this.post_index < this.post_list.length) {
+					this.post_index += 1;
+				}
+			}
+		},
 
+		handleScroll() {
+			let listElement = this.$refs.list;
+			if (listElement.getBoundingClientRect().bottom < window.innerHeight) {
+				this.loadMore();
+			}
+		},
+	},
+	created() {
+		this.loadInitial();
+	},
+	computed: {
+		posts() {
+			return this.posts_to_load;
+		},
+	},
 };
 </script>
 
 <style scoped>
-#list {
-	width: 50%;
-	height: 40%;
-	margin: auto;
-}
-
 #btn {
 	width: 100%;
 	margin-bottom: 10px;

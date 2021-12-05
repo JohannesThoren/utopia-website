@@ -20,23 +20,27 @@ http://mozilla.org/MPL/2.0/.
           </pre>
 				</div>
 			</div>
-			<ProfilePostList />
-			<BoardsList class="center-item" :title="'Boards Owned By '+name" id="side" :arr_boards="arr_boards"/>
-
+			<PostList :post_list="posts" />
+			<BoardsList
+				class="center-item"
+				:title="'Boards Owned By ' + name"
+				id="side"
+				:arr_boards="arr_boards"
+			/>
 		</div>
 	</div>
 </template>
 
 <script>
-import ProfilePostList from "../components/ProfilePostList.vue";
-import BoardsList from "../components/BoardsList.vue"
+import PostList from "../components/PostList.vue";
+import BoardsList from "../components/BoardsList.vue";
 import { api_get_call } from "../api_calls.js";
 
 export default {
 	name: "Profile",
 	components: {
-		ProfilePostList,
-		BoardsList
+		PostList,
+		BoardsList,
 	},
 	data() {
 		return {
@@ -45,11 +49,16 @@ export default {
 			description: "",
 			currentUserId: "",
 			arr_boards: [],
+			arr_posts: [],
 		};
 	},
 	computed: {
 		boards() {
 			return this.arr_boards;
+		},
+
+		posts() {
+			return this.arr_posts;
 		},
 	},
 	async created() {
@@ -70,8 +79,6 @@ export default {
 		this.name = user["username"];
 		this.description = user["description"];
 
-		console.log(user);
-
 		const boards = await api_get_call(
 			this.$store.state.api_root,
 			`user/get/boards/${this.$route.params.id}`
@@ -81,6 +88,17 @@ export default {
 			console.log(boards[board]);
 			console.log(this.boards[0].name);
 		}
+
+		let posts = await api_get_call(
+			this.$store.state.api_root,
+			`user/${this.$route.params.id}/get/posts`
+		);
+
+		// push each post into an array then revers the array
+		for (let post in posts) {
+			this.arr_posts.push(posts[post]);
+		}
+		this.arr_posts.reverse();
 	},
 };
 </script>
@@ -91,8 +109,9 @@ export default {
 	width: 100%;
 }
 
-#followers {text-align: center;}
-
+#followers {
+	text-align: center;
+}
 
 #description {
 	display: grid;
