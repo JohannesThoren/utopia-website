@@ -5,14 +5,6 @@ http://mozilla.org/MPL/2.0/. // TODO reverse the list of posts!!
 
 <template>
 	<div id="list">
-		<button
-			id="btn"
-			@click="redirect_add"
-			v-if="$store.state.authorized"
-			class="btn center-text"
-		>
-			<i class="fas fa-pencil-alt"></i> New Post
-		</button>
 		<Post
 			v-for="post in posts"
 			:key="post"
@@ -31,12 +23,19 @@ import Post from "./Post.vue";
 
 export default {
 	name: "PostList",
+	data() {
+		return {
+			posts_to_load: [],
+			post_index: 0,
+		};
+	},
 	components: {
 		Post,
 	},
 	props: {
 		posts: Array,
 	},
+
 };
 </script>
 

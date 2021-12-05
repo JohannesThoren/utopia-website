@@ -8,28 +8,28 @@ containing the board title and description.
 	<div id="board" v-if="b_board_exists">
 		<div id="info" class="card">
 			<div class="card-header">
-				<div class="title center-text">{{ str_board_name }}</div>
+				<div class="title center-text">{{ json_board_data.name }}</div>
 			</div>
 
 			<div class="card-content">
 				<pre id="description">
           <span class="subtitle">Board Description</span>
-          {{str_board_description}}
+          {{json_board_data.description}}
         </pre>
 
 				<p>
 					<i class="fas fa-at"></i> Owner:
-					<router-link :to="'/p/' + str_board_owner_id">{{
-						str_board_owner
+					<router-link :to="'/p/' + json_board_data.owner">{{
+						json_board_owner_name
 					}}</router-link>
 				</p>
 				<p>
 					<i class="far fa-clock"></i> Board created:
-					{{ str_board_created }}
+					{{ json_board_data.created }}
 				</p>
 				<p>
 					<i class="fas fa-user-friends"></i> Followers:
-					{{ int_board_followers }}
+					{{ json_board_data.followers }}
 				</p>
 
 				<router-link
@@ -38,8 +38,7 @@ containing the board title and description.
 					class="btn warning-bg"
 					@click="delete_board()"
 					v-if="
-						str_board_owner_id == str_current_user_id &&
-						$store.state.authorized
+						json_board_owner.id == json_current_user.id && $store.state.authorized
 					"
 					><i class="fas fa-trash-alt"></i>Delete Board</router-link
 				>
@@ -47,7 +46,19 @@ containing the board title and description.
 		</div>
 
 		<div>
-			<PostList id="posts" @new-post="b_show_new_post = true" :posts="arr_posts"/>
+			<button
+				id="add-btn"
+				@click="b_show_new_post = true"
+				v-if="$store.state.authorized"
+				class="btn center-text"
+			>
+				<i class="fas fa-pencil-alt"></i> New Post
+			</button>
+			<PostList
+				id="posts"
+				@new-post="b_show_new_post = true"
+				:posts="arr_posts"
+			/>
 			<NewPost
 				v-if="b_show_new_post"
 				@close-new-post="b_show_new_post = false"
@@ -81,13 +92,9 @@ export default {
 			b_board_exists: false,
 			b_show_new_post: false,
 			str_board_id: this.$route.params.id,
-			str_board_name: "",
-			str_board_owner: "",
-			str_board_owner_id: "",
-			str_board_created: "",
-			str_board_description: "",
-			int_board_followers: 0,
-			str_current_user_id: "",
+			json_board_owner: "",
+			json_current_user: "",
+			json_board_data: JSON,
 			arr_posts: [],
 		};
 	},
@@ -112,43 +119,46 @@ export default {
 		}
 	},
 	// TODO comment this code
-	async mounted() {
-		setTimeout(async () => {
-			if (this.b_board_exists) {
-				let data = await api_get_call(
-					this.$store.state.api_root,
-					`board/get/id/${this.str_board_id}`
-				);
+	async created() {
 
-				this.str_board_name = data["name"];
-				this.str_board_created = data["created"];
-				this.str_board_owner_id = data["owner"];
-				this.str_board_description = data["description"];
-				this.int_board_followers = data["followers"];
+		// get the board data
+		this.json_board_data = await api_get_call(
+			this.$store.state.api_root,
+			`board/get/id/${this.str_board_id}`
+		);	
 
-				let owner = await api_get_call(
-					this.$store.state.api_root,
-					`user/get/id/${this.str_board_owner_id}`
-				);
-				this.str_board_owner = owner["username"];
+		// get the board owners name
+		this.json_board_owner = await api_get_call(
+			this.$store.state.api_root,
+			`user/get/id/${this.json_board_data.owner}`
+		);
 
-				if (this.$cookie.get("token")) {
-					const token = this.$cookie.get("token");
-					const data = await api_get_call(
-						this.$store.state.api_root,
-						`user/get/token/${token}`
-					);
-					this.str_current_user_id = data["id"];
-				}
+		// if there is a token cookie the get the id of the current user
+		if (this.$cookie.get("token")) {
+			this.json_current_user = await api_get_call(
+				this.$store.state.api_root,
+				`user/get/token/${this.$cookie.get("token")}`
+			);
+		}
 
-				// get posts
-				let posts = await api_get_call(this.$store.state.api_root, `board/${this.str_board_id}/posts/get/all`);
-				for(let post in posts) {this.arr_posts.push(posts[post]);}
-				this.arr_posts.reverse();
-
-			}
-		}, 500);
+		// get the posts for the board
+		let posts = await api_get_call(
+			this.$store.state.api_root,
+			`board/${this.str_board_id}/posts/get/all`
+		);
+		
+		// push each post into an array then revers the array 
+		for (let post in posts) {
+			this.arr_posts.push(posts[post]);
+		}
+		this.arr_posts.reverse();
 	},
+
+	computed: {
+		json_board_owner_name() {
+			return this.json_board_owner.username
+		}
+	}
 };
 </script>
 
@@ -170,5 +180,12 @@ export default {
 	overflow-x: wrap;
 }
 
-#info {max-height: 60vh;}
+#info {
+	max-height: 60vh;
+}
+
+#add-btn {
+	width: 100%;
+	margin-bottom: 10px;
+}
 </style>
