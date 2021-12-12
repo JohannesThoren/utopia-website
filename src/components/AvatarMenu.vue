@@ -9,10 +9,14 @@
 
       <div id="container" @mouseover="b_show_menu = true" @mouseleave="b_show_menu = false">
             <Avatar id="avatar" :user_id="id"/>
-            <ul v-if="b_show_menu" id="menu" class="card shadow">
-                  <li><button class="btn warning-bg" @click="fn_on_sign_out(); this.$router.go()">Sign Out</button></li>
+            <span  v-if="b_show_menu" id="menu" class="shadow">
+                  
+            <ul>
+                  <li><router-link to="/settings">Settings</router-link></li>
 
             </ul>      
+                  <button class="btn warning-bg" @click="fn_on_sign_out(); this.$router.go()">Sign Out</button>
+            </span>
       </div>
 </div>
 </template>
@@ -26,6 +30,7 @@ export default {
             return {
                   id: this.$store.state.user['id'],
                   b_show_menu: false,
+                  avatar_width: 0
             }
       },
       methods: {
@@ -34,12 +39,15 @@ export default {
                   this.$store.commit('set_user', []);
                   this.$cookie.remove('token');
             }
+      },
+      mounted() {
+            this.avatar_width = document.getElementById('avatar').clientWidth;
+            console.log(this.avatar_width)
       }
 }
 </script>
 
 <style scoped>
-
 a {text-decoration: none}
 a:hover {text-decoration: underline}
 
@@ -50,6 +58,7 @@ li {
 ul {
       margin: 0;
       list-style: none;
+      padding: 0;
 }
 
 #container {box-shadow: var(--shadow);}
@@ -72,10 +81,14 @@ ul {
       position: fixed;
       box-shadow: none;
       padding:var(--padding-small);
-      width: 200px;
       z-index: 1;
-      border: 0.5px solid var(--accent-3);
+      width: 200px;
+      border: 0.5px solid var(--accent-2);
       transition: 0.5s;
+      background-color: white;
+      border-bottom-left-radius: var(--radius);
+      border-bottom-right-radius: var(--radius);
+
 }
 
 </style>

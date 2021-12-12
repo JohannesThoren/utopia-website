@@ -18,7 +18,7 @@ http://mozilla.org/MPL/2.0/. // TODO reverse the list of posts!!
 	</div>
 
 	<div v-else>
-		<p>There are no posts yet!</p>
+		<p class="center-text">Sorry there are no posts yet!</p>
 	</div>
 </template>
 
@@ -50,22 +50,12 @@ export default {
 			if (this.post_list[0] == null) {
 				setTimeout(() => {
 					for (let i = 0; i < 5; i++) {
-						let post = this.post_list[this.post_index];
-						console.log(post);
-						this.posts_to_load.push(post);
-						if (this.post_index < this.post_list.length) {
-							this.post_index += 1;
-						}
+						this.loadMore()
 					}
-				}, 1000);
+				}, 200);
 			} else {
 				for (let i = 0; i < 5; i++) {
-					let post = this.post_list[this.post_index];
-					console.log(post);
-					this.posts_to_load.push(post);
-					if (this.post_index < this.post_list.length) {
-						this.post_index += 1;
-					}
+					this.loadMore();
 				}
 			}
 		},

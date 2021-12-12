@@ -125,7 +125,6 @@ export default {
 				this.$store.state.api_root,
 				`board/${this.$route.params.id}/post/new`
 			);
-			console.log(data);
 			if (data["response code"] == 200) {
 				this.$emit("close-new-post");
 				this.$router.go();
@@ -135,7 +134,6 @@ export default {
 		},
 
 		fn_change_flag(flag) {
-			console.log(flag);
 			this.str_post_flag = flag;
 		},
 	},

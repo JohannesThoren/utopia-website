@@ -18,18 +18,18 @@ containing the board title and description.
         </pre>
 
 				<p>
-					<i class="fas fa-at"></i> Owner:
+					<i class="fas fa-crown"></i> Owner:
 					<router-link :to="'/p/' + json_board_data.owner">{{
 						json_board_owner_name
 					}}</router-link>
 				</p>
 				<p>
-					<i class="far fa-clock"></i> Board created:
-					{{ json_board_data.created }}
-				</p>
-				<p>
 					<i class="fas fa-user-friends"></i> Followers:
 					{{ json_board_data.followers }}
+				</p>
+				<p>
+					<i class="far fa-clock"></i> Board created:
+					{{ json_board_data.created }}
 				</p>
 
 				<router-link
@@ -38,7 +38,8 @@ containing the board title and description.
 					class="btn warning-bg"
 					@click="delete_board()"
 					v-if="
-						json_board_owner.id == json_current_user.id && $store.state.authorized
+						json_board_owner.id == json_current_user.id &&
+						$store.state.authorized
 					"
 					><i class="fas fa-trash-alt"></i>Delete Board</router-link
 				>
@@ -99,13 +100,14 @@ export default {
 		};
 	},
 	methods: {
+		// delete the current board if the token of the current user is the same as the owners token.
 		async delete_board() {
 			const data = await api_post_call(
 				{ token: this.$cookie.get("token") },
 				this.$store.state.api_root,
 				`board/${this.str_board_id}/delete/`
 			);
-			console.log(data);
+			return data;
 		},
 	},
 	async beforeCreate() {
@@ -118,14 +120,12 @@ export default {
 			this.b_board_exists = true;
 		}
 	},
-	// TODO comment this code
 	async created() {
-
 		// get the board data
 		this.json_board_data = await api_get_call(
 			this.$store.state.api_root,
 			`board/get/id/${this.str_board_id}`
-		);	
+		);
 
 		// get the board owners name
 		this.json_board_owner = await api_get_call(
@@ -146,8 +146,8 @@ export default {
 			this.$store.state.api_root,
 			`board/${this.str_board_id}/posts/get/all`
 		);
-		
-		// push each post into an array then revers the array 
+
+		// push each post into an array then revers the array
 		for (let post in posts) {
 			this.arr_posts.push(posts[post]);
 		}
@@ -156,9 +156,9 @@ export default {
 
 	computed: {
 		json_board_owner_name() {
-			return this.json_board_owner.username
-		}
-	}
+			return this.json_board_owner.username;
+		},
+	},
 };
 </script>
 
@@ -181,11 +181,15 @@ export default {
 }
 
 #info {
-	max-height: 60vh;
+	height: fit-content;
+	max-height: 50vh;
 }
 
 #add-btn {
 	width: 100%;
 	margin-bottom: 10px;
+}
+
+@media screen {
 }
 </style>

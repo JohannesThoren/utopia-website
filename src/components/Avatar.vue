@@ -4,11 +4,37 @@ distributed with this // file, You can obtain one at
 http://mozilla.org/MPL/2.0/.
 
 <template>
-	<router-link :to="'/p/' + user_id" class="avatar">
-		<img :src="image" />
+	<router-link tabindex="-1" :to="'/p/' + user_id" class="avatar" :id="user_id">
+		<img :src="profile_picture" alt="profile pic"/>
 		<div id="name">{{ username }}</div>
 	</router-link>
 </template>
+
+
+<style scoped>
+img {	
+	width: 65%;
+	object-fit: contain;
+	aspect-ratio: 1/1;
+	border-radius: 100%;
+	border: 0.5px solid var(--accent-1)
+}
+
+.avatar {
+	text-align: center;
+	text-decoration: none;
+	display: grid;
+	grid-template-columns: 0.5fr 1.5fr;
+	height: 100%;
+	width: 200px;
+	max-height: 40px;
+	align-items: center;
+	border: 0.5px solid var(--accent-2);
+	border-radius: var(--radius);
+	padding: var(--padding-small)
+}
+
+</style>
 
 <script>
 import { api_get_call } from "../api_calls";
@@ -21,7 +47,7 @@ export default {
 	data() {
 		return {
 			username: "",
-			image: "",
+			profile_picture: "",
 		};
 	},
 	async created() {
@@ -33,41 +59,10 @@ export default {
 			);
 			setTimeout(() => {
 				this.username = data["username"];
-				this.image = data["profile_picture"];
+				this.profile_picture = data["profile_picture"];
 			}, 10);
 		}, 100);
 	},
 };
 </script>
 
-<style scoped>
-.avatar {
-	max-height: 48px;
-	width: 200px;
-	padding: var(--padding-small);
-	display: flex;
-	align-items: center;
-	border-radius: var(--radius);
-	border: 0.5px solid var(--accent-3);
-	text-decoration: none;
-}
-
-#name {
-	margin: auto;
-	text-align: center;
-	width: 70%;
-	overflow-x: hidden;
-}
-
-.avatar img {
-	width: 36px;
-	height: 36px;
-	border-radius: 100%;
-	margin-left: 5px;
-	margin-right: 5px;
-}
-
-.avatar span {
-	font-size: 1.2em;
-}
-</style>

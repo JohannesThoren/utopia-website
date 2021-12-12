@@ -8,7 +8,7 @@
 		</div>
 		<div v-if="$store.state.authorized">
 			<button
-				class="btn ok-bg center-item"
+				class="btn center-item"
 				id="follow"
 				v-if="!bool_user_following"
 				@click="fn_follow(str_board_id)"
@@ -21,7 +21,7 @@
 				id="unfollow"
 				v-if="bool_user_following"
 			>
-				UnFollow
+				Unfollow
 			</button>
 		</div>
 		<div v-else><span>Followers</span></div>
@@ -70,11 +70,13 @@ export default {
 
 <style scoped>
 .btn {
-	width: 90%;
+	width: 60%;
+	max-height: 25px;
+	font-size: 1em;
 }
 
 #link {
-	font-size: 1.2em;
+	text-decoration: none;
 }
 
 #board_link {
@@ -82,6 +84,5 @@ export default {
 	grid-template-columns: 1.5fr 0.5fr 1fr;
 	padding: var(--padding-small);
 	align-items: center;
-	min-height: 50px;
 }
 </style>

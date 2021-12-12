@@ -11,13 +11,14 @@ http://mozilla.org/MPL/2.0/.
 				<div class="card-header">
 					<div class="title center-text">{{ name }}'s Info</div>
 				</div>
-				<div class="center-text card-content">
-					<img id="img" :src="image" />
-					<pre id="description" class="background-accent-2">
-            <span class="subtitle">Description</span>
-            {{ description }}
-            <button  class="btn" v-if="currentUserId ==  $route.params.id && $store.state.authorized">Edit Description</button>
-          </pre>
+				<div class="card-content">
+					<div class="center-text">
+						<img id="img" alt="profile picture" :src="profile_picture"/>
+					</div>
+					<pre id="info" class="background-accent-2">
+					<span class="subtitle">Info</span>
+					{{ info }}
+				</pre>
 				</div>
 			</div>
 			<PostList :post_list="posts" />
@@ -44,9 +45,9 @@ export default {
 	},
 	data() {
 		return {
-			image: "",
+			profile_picture: "",
 			name: "",
-			description: "",
+			info: "",
 			currentUserId: "",
 			arr_boards: [],
 			arr_posts: [],
@@ -75,9 +76,9 @@ export default {
 			this.$store.state.api_root,
 			`user/get/id/${this.$route.params.id}`
 		);
-		this.image = user["profile_picture"];
+		this.profile_picture = user["profile_picture"];
 		this.name = user["username"];
-		this.description = user["description"];
+		this.info = user["info"];
 
 		const boards = await api_get_call(
 			this.$store.state.api_root,
@@ -113,10 +114,15 @@ export default {
 	text-align: center;
 }
 
-#description {
-	display: grid;
-	text-align: left;
+#info {
+	padding: var(--padding-small);
+	white-space: pre-line;
+	font: var(--font);
 	border-left: 4px solid var(--accent-2);
+	margin: 0px;
+	max-height: 200px;
+	overflow-y: scroll;
+	overflow-x: wrap;
 }
 
 #img {

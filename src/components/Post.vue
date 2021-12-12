@@ -5,21 +5,36 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 <template>
-  <div id="post" class="card">
-    <div id="header" class="card-header">
-      <Avatar id="avtar" :user_id="author" />
-      <div class="btn-group">
-        <button class="btn" v-if="currentUserId == author && $store.state.authorized"><i class="fas fa-edit"></i>Edit</button>
-        <button class="btn warning-bg" v-if="currentUserId == author && $store.state.authorized" @click="fn_delete"><i class="fas fa-trash-alt"></i>Delete</button>
-        <router-link class="btn btn-hollow" :to="'/b/'+board_id">To board</router-link>
-      </div>
-      <router-link :to="'/post/'+id" class="title center-text">{{ title }}</router-link>
-    </div>
-    <div id="content" class="card-content">
-      <pre v-if="flag == 'TEXT'">{{ content }}</pre>
-      <img id="img" v-if="flag == 'IMAGE'" :src="content" alt="" />
-    </div>
-  </div>
+	<div id="post" class="card">
+		<div id="header" class="card-header">
+			<Avatar :user_id="author" />
+			<div class="btn-group">
+				<button
+					class="btn"
+					v-if="currentUserId == author && $store.state.authorized"
+				>
+					<i class="fas fa-edit"></i>Edit
+				</button>
+				<button
+					class="btn warning-bg"
+					v-if="currentUserId == author && $store.state.authorized"
+					@click="fn_delete"
+				>
+					<i class="fas fa-trash-alt"></i>Delete
+				</button>
+				<router-link class="btn btn-hollow" :to="'/b/' + board_id"
+					>To board</router-link
+				>
+			</div>
+			<router-link :to="'/post/' + id" class="title center-text">{{
+				title
+			}}</router-link>
+		</div>
+		<div id="content" class="card-content">
+			<pre v-if="flag == 'TEXT'">{{ content }}</pre>
+			<img id="img" v-if="flag == 'IMAGE'" :src="content" alt="" />
+		</div>
+	</div>
 </template>      
 
 <script>
@@ -27,82 +42,83 @@ import Avatar from "./Avatar.vue";
 import { api_get_call, api_post_call } from "../api_calls";
 
 export default {
-  name: "Post",
-  data() {
-    return {
-      currentUserId: "",
-      b_blur: true,
-    };
-  },
-  props: {
-    author: String,
-    title: String,
-    content: String,
-    flag: String,
-    id: String,
-    board_id: String,
-  },
-  components: {
-    Avatar,
-  },
-  methods: {
-    async fn_delete() {
-      const data = await api_post_call({"token": this.$cookie.get("token")}, this.$store.state.api_root, `post/${this.id}/delete`)
-      console.log(data)
-      this.$router.go()
-    }
-  },
-  async created() {
-    const token = this.$cookie.get("token");
-    const data = await api_get_call(
-      this.$store.state.api_root,
-      `user/get/token/${token}`
-    );
-    this.currentUserId = data["id"];
-  },
+	name: "Post",
+	data() {
+		return {
+			currentUserId: "",
+			b_blur: true,
+		};
+	},
+	props: {
+		author: String,
+		title: String,
+		content: String,
+		flag: String,
+		id: String,
+		board_id: String,
+	},
+	components: {
+		Avatar,
+	},
+	methods: {
+		async fn_delete() {
+			const data = await api_post_call(
+				{ token: this.$cookie.get("token") },
+				this.$store.state.api_root,
+				`post/${this.id}/delete`
+			);
+			this.$router.go();
+			return data;
+		},
+	},
+	async created() {
+		const token = this.$cookie.get("token");
+		const data = await api_get_call(
+			this.$store.state.api_root,
+			`user/get/token/${token}`
+		);
+		this.currentUserId = data["id"];
+	},
 };
 </script>
 
 <style scoped>
 
 #img {
-  max-height: 35vh;
-  margin: auto;
+	max-height: 35vh;
+	margin: auto;
 }
 
 #post {
-  margin-bottom: 10px;
-  min-height: 25vh;
-  max-height: 50vh;
-  max-width: 50vw;
-  overflow-y: hidden;
+	margin-bottom: 10px;
+	min-height: 25vh;
+	max-height: 50vh;
+	max-width: 50vw;
+	overflow-y: hidden;
 }
 
 #content {
-  display: grid;
-
+	display: grid;
 }
 
-#post #content pre {
-  padding: var(--padding-large);
-  white-space: pre-line;
-  font-family: var(--font);
+#content pre {
+	padding: var(--padding-large);
+	white-space: pre-line;
+	font-family: var(--font);
+	overflow-x: wrap;
+	overflow-wrap: break-word;
 }
-#post #header {
-  padding: var(--padding-medium);
-  display: flex;
-  grid-template-columns: 0.5fr 1.5fr 0.5fr;
-  align-items: center;
-  box-shadow: var(--shadow);
+#header {
+	padding: var(--padding-medium);
+	display: flex;
+	align-items: center;
+	box-shadow: var(--shadow);
+	gap: 10px;
 }
 
-
-#header * {margin-left: 10px; margin-right: 10px}
-#header .btn {margin: 0}
 
 .title {
-  font-size: 1.5em;
-  text-decoration: none;
+	font-size: 1.5em;
+	text-decoration: none;
 }
-
 </style>

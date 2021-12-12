@@ -5,9 +5,7 @@ http://mozilla.org/MPL/2.0/.
 
 <template>
 	<div id="board-list" class="card">
-		<div class="card-header">
-			<div class="title center-text">{{title}}</div>
-		</div>
+			<div class="title card-header center-text">{{title}}</div>
 		<div id="list" class="card-content">
 			<BoardLink
 				v-for="board in arr_boards"
@@ -22,12 +20,14 @@ http://mozilla.org/MPL/2.0/.
 </template>
 
 <style scoped>
+
+
 #actions {
 	margin-left: auto;
 }
 
 .title {
-	margin: 0px;
+	font-size: 1.2em;
 }
 </style>
 
@@ -62,8 +62,6 @@ export default {
 				);
 
 				for (var j in json_user["following"]) {
-					console.log(j);
-					console.log(json_user["following"][j]);
 					this.arr_user_following.push(json_user["following"][j]);
 				}
 			}
