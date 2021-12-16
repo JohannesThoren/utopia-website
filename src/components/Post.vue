@@ -7,8 +7,21 @@
 <template>
 	<div id="post" class="card">
 		<div id="header" class="card-header">
+			<router-link :to="'/post/' + id" class="title center-text">{{
+				title
+			}}</router-link>
+		</div>
+		<div id="content" class="card-content">
+			<pre v-if="flag == 'TEXT'">{{ content }}</pre>
+			<img id="img" v-if="flag == 'IMAGE'" :src="content" alt="" />
+		</div>
+
+		<div class="card-footer">
 			<Avatar :user_id="author" />
 			<div class="btn-group">
+				<router-link class="btn btn-hollow" :to="'/b/' + board_id"
+					>To board</router-link
+				>
 				<button
 					class="btn"
 					v-if="currentUserId == author && $store.state.authorized"
@@ -22,17 +35,7 @@
 				>
 					<i class="fas fa-trash-alt"></i>Delete
 				</button>
-				<router-link class="btn btn-hollow" :to="'/b/' + board_id"
-					>To board</router-link
-				>
 			</div>
-			<router-link :to="'/post/' + id" class="title center-text">{{
-				title
-			}}</router-link>
-		</div>
-		<div id="content" class="card-content">
-			<pre v-if="flag == 'TEXT'">{{ content }}</pre>
-			<img id="img" v-if="flag == 'IMAGE'" :src="content" alt="" />
 		</div>
 	</div>
 </template>      
@@ -83,19 +86,16 @@ export default {
 </script>
 
 <style scoped>
+.card-footer {
+	box-shadow: var(--shadow);
+	justify-content: space-between;
+}
 
 #img {
 	max-height: 35vh;
 	margin: auto;
 }
 
-#post {
-	margin-bottom: 10px;
-	min-height: 25vh;
-	max-height: 50vh;
-	max-width: 50vw;
-	overflow-y: hidden;
-}
 
 #content {
 	display: grid;
@@ -115,7 +115,6 @@ export default {
 	box-shadow: var(--shadow);
 	gap: 10px;
 }
-
 
 .title {
 	font-size: 1.5em;

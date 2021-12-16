@@ -86,9 +86,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #btn {
 	width: 100%;
 	margin-bottom: 10px;
+}
+
+#list {
+	display: grid;
+	gap: 15px;
 }
 </style>

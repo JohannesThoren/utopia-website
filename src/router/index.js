@@ -31,7 +31,7 @@ const routes = [
   },
   {
     path: '/post/:id',
-    component: () => import('../views/Post.vue')
+    component: () => import('../views/PostView.vue')
   },
   {
     path: '/settings',

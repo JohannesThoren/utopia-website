@@ -56,7 +56,6 @@ containing the board title and description.
 				<i class="fas fa-pencil-alt"></i> New Post
 			</button>
 			<PostList
-				id="posts"
 				@new-post="b_show_new_post = true"
 				:post_list="arr_posts"
 			/>
