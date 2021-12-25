@@ -5,22 +5,30 @@ http://mozilla.org/MPL/2.0/.
 
 <template>
 	<div id="board-list" class="card">
-			<div class="title card-header center-text">{{title}}</div>
-		<div id="list" class="card-content">
-			<BoardLink
-				v-for="board in arr_boards"
-				:key="board.name"
-				:bool_user_following="fn_is_board_followed(board.id)"
-				:str_board_name="board.name"
-				:str_board_id="board.id"
-				:num_board_followers="board.followers"
-			/>
-		</div>
+		<div class="title card-header center-text">{{ title }}</div>
+		<ul class="card-content">
+			<li v-for="board in arr_boards" :key="board.name">
+				<BoardLink
+					:bool_user_following="fn_is_board_followed(board.id)"
+					:str_board_name="board.name"
+					:str_board_id="board.id"
+					:num_board_followers="board.followers"
+				/>
+			</li>
+		</ul>
 	</div>
 </template>
 
 <style scoped>
+ul {
+	list-style-type: none;
+	padding: none;
+}
 
+#top-item span:nth-child(2) {
+	border-left: 0.5px solid black;
+	border-right: 0.5px solid black;
+}
 
 #actions {
 	margin-left: auto;
@@ -45,7 +53,7 @@ export default {
 	},
 	props: {
 		arr_boards: Array,
-		title: String
+		title: String,
 	},
 	methods: {
 		fn_is_board_followed(id) {

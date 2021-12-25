@@ -13,11 +13,11 @@ http://mozilla.org/MPL/2.0/.
 
 <style scoped>
 img {	
-	width: 65%;
-	object-fit: contain;
+	width: 70%;
+	/* object-fit: contain; */
 	aspect-ratio: 1/1;
 	border-radius: 100%;
-	border: 0.5px solid var(--accent-1)
+	border: 0.0313rem solid var(--accent-1)
 }
 
 .avatar {
@@ -29,7 +29,7 @@ img {
 	width: 200px;
 	max-height: 40px;
 	align-items: center;
-	border: 0.5px solid var(--accent-2);
+	border: 0.5008px solid var(--accent-2);
 	border-radius: var(--radius);
 	padding: var(--padding-small)
 }
