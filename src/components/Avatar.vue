@@ -5,19 +5,19 @@ http://mozilla.org/MPL/2.0/.
 
 <template>
 	<router-link tabindex="-1" :to="'/p/' + user_id" class="avatar" :id="user_id">
-		<img :src="profile_picture" alt="profile pic"/>
+		<img :src="profile_picture" alt="profile pic" />
 		<div id="name">{{ username }}</div>
 	</router-link>
 </template>
 
 
 <style scoped>
-img {	
+img {
 	width: 70%;
 	/* object-fit: contain; */
 	aspect-ratio: 1/1;
 	border-radius: 100%;
-	border: 0.0313rem solid var(--accent-1)
+	border: 0.0313rem solid var(--accent-1);
 }
 
 .avatar {
@@ -31,9 +31,8 @@ img {
 	align-items: center;
 	border: 0.5008px solid var(--accent-2);
 	border-radius: var(--radius);
-	padding: var(--padding-small)
+	padding: var(--padding-small);
 }
-
 </style>
 
 <script>
@@ -51,17 +50,13 @@ export default {
 		};
 	},
 	async created() {
-		setTimeout(async () => {
-			let id = this.user_id;
-			const data = await api_get_call(
-				this.$store.state.api_root,
-				"user/get/id/" + id
-			);
-			setTimeout(() => {
-				this.username = data["username"];
-				this.profile_picture = data["profile_picture"];
-			}, 10);
-		}, 100);
+		let id = this.user_id;
+		const data = await api_get_call(
+			this.$store.state.api_root,
+			"user/get/id/" + id
+		);
+		this.username = data["username"];
+		this.profile_picture = data["profile_picture"];
 	},
 };
 </script>

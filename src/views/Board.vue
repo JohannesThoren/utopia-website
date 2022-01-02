@@ -32,17 +32,23 @@ containing the board title and description.
 					{{ json_board_data.created }}
 				</p>
 
-				<router-link
-					to="/"
-					id="delete"
-					class="btn warning-bg"
-					@click="delete_board()"
+				<div
+					class="btn-group"
 					v-if="
 						json_board_owner.id == json_current_user.id &&
 						$store.state.authorized
 					"
-					><i class="fas fa-trash-alt"></i>Delete Board</router-link
 				>
+					<router-link class="btn" :to="'/b/'+str_board_id+'/edit'">Edit Board</router-link>
+
+					<router-link
+						to="/"
+						id="delete"
+						class="btn warning-bg"
+						@click="delete_board()"
+						><i class="fas fa-trash-alt"></i>Delete Board</router-link
+					>
+				</div>
 			</div>
 		</div>
 
@@ -55,10 +61,7 @@ containing the board title and description.
 			>
 				<i class="fas fa-pencil-alt"></i> New Post
 			</button>
-			<PostList
-				@new-post="b_show_new_post = true"
-				:post_list="arr_posts"
-			/>
+			<PostList @new-post="b_show_new_post = true" :post_list="arr_posts" />
 			<NewPost
 				v-if="b_show_new_post"
 				@close-new-post="b_show_new_post = false"

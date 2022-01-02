@@ -16,7 +16,7 @@
 				<router-link to="/settings">Settings</router-link>
 			</li>
 			<li>
-				<button @click="fn_on_sign_out"  id="sign-out-btn" class="btn warning-bgs">Sign Out</button>
+				<button @click="fn_on_sign_out"  id="sign-out-btn" class="btn warning-bg">Sign Out</button>
 			</li>
 		</ul>
 	</div>

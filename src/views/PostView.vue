@@ -9,12 +9,11 @@
 		<div class="card">
 			<h2 class="card-header center-text">Info</h2>
 			<div class="card-content">
-				<p></p>
+				<p>Author: {{ post["author"] }}</p>
+				<p>Board: {{ post["board"] }}</p>
+				<p>Created: {{ post["created"] }}</p>
 			</div>
 		</div>
-
-		d
-
 	</div>
 </template>
 
@@ -22,7 +21,7 @@
 import { api_get_call } from "../api_calls";
 export default {
 	name: "PostView",
-	components: { },
+	components: {},
 	data() {
 		return {
 			post: "",

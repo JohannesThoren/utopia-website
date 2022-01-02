@@ -36,6 +36,10 @@ const routes = [
   {
     path: '/settings',
     component: () => import('../views/Settings.vue')
+  },
+  {
+    path: '/b/:id/edit',
+    component: () => import('../views/EditBoard.vue')
   }
 ]
 
