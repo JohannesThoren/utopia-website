@@ -23,12 +23,6 @@
 					>To board</router-link
 				>
 				<button
-					class="btn"
-					v-if="currentUserId == author && $store.state.authorized"
-				>
-					<i class="fas fa-edit"></i>Edit
-				</button>
-				<button
 					class="btn warning-bg"
 					v-if="currentUserId == author && $store.state.authorized"
 					@click="fn_delete"
@@ -50,6 +44,7 @@ export default {
 		return {
 			currentUserId: "",
 			b_blur: true,
+
 		};
 	},
 	props: {
@@ -81,6 +76,8 @@ export default {
 			`user/get/token/${token}`
 		);
 		this.currentUserId = data["id"];
+
+
 	},
 };
 </script>

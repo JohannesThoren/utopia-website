@@ -6,26 +6,30 @@
 
 <template>
   <div>
-    <SignIn
-      v-if="b_show_sign_in"
-      @show-signup="b_show_sign_up = true"
-      @close-signin="b_show_sign_in = false"
-    />
-    <SignUp v-if="b_show_sign_up" @close-signup="b_show_sign_up = false" @show-signin="b_show_sign_in = true"/>
-    <NewBoard
-      v-if="b_show_new_board"
-      @close-new-board="b_show_new_board = false"
-    />
-    <SiteHeader
-    id="header"
-      @show-signup="b_show_sign_up = true"
-      @show-signin="b_show_sign_in = true"
-      @show-new-board="b_show_new_board = true"
-    />
-    <div id="view">
-      <router-view/>
-    </div>
-  </div>
+		<SignIn
+			v-if="b_show_sign_in"
+			@show-signup="b_show_sign_up = true"
+			@close-signin="b_show_sign_in = false"
+		/>
+		<SignUp
+			v-if="b_show_sign_up"
+			@close-signup="b_show_sign_up = false"
+			@show-signin="b_show_sign_in = true"
+		/>
+		<NewBoard
+			v-if="b_show_new_board"
+			@close-new-board="b_show_new_board = false"
+		/>
+		<SiteHeader
+			id="header"
+			@show-signup="b_show_sign_up = true"
+			@show-signin="b_show_sign_in = true"
+			@show-new-board="b_show_new_board = true"
+		/>
+		<div id="view" tabindex="-1">
+			<router-view :key="view" />
+		</div>
+	</div>
 </template>
 
 <script>
@@ -37,40 +41,52 @@ import NewBoard from "./components/NewBoard.vue";
 import { token_authorize } from "./api_calls";
 
 export default {
-  components: {
-    SiteHeader,
-    SignIn,
-    SignUp,
-    NewBoard,
-  },
-  data() {
-    return {
-      b_show_sign_in: false,
-      b_show_sign_up: false,
-      b_show_new_board: false,
-    };
-  },
-  async created() {
-    let token = this.$cookie.get("token");
-    if (token != null) {
-      let data = await token_authorize(token, this.$store.state.api_root);
-      if (data["response code"] == 200) {
-        this.$store.commit("authorized");
-        this.$store.commit("set_user", [
-          data["id"],
-          data["username"],
-          data["image"],
-        ]);
-        this.$cookie.set("token", data["token"]);
-      }
-    }
-  },
+	components: {
+		SiteHeader,
+		SignIn,
+		SignUp,
+		NewBoard,
+	},
+	data() {
+		return {
+			b_show_sign_in: false,
+			b_show_sign_up: false,
+			b_show_new_board: false,
+		};
+	},
+	async created() {
+		let token = this.$cookie.get("token");
+		if (token != null) {
+			let data = await token_authorize(token, this.$store.state.api_root);
+			if (data["response code"] == 200) {
+				this.$store.commit("authorized");
+				this.$store.commit("set_user", [
+					data["id"],
+					data["username"],
+					data["image"],
+				]);
+				this.$cookie.set("token", data["token"]);
+			}
+		}
+	},
 };
 </script>
 
 <style scoped>
+#hidden-btn {
+  transform: translateY(-120%);
+  position: absolute;
+	z-index: 1000;
+}
+
+#hidden-btn:focus {
+  transition: 0.5s;
+  transform: translateY(120%);
+  color:green;
+  background-color:black  
+}
 #view {
-  padding: var(--padding-small);
-  padding-top: 8vh;
+	padding: var(--padding-small);
+	padding-top: 8vh;
 }
 </style>

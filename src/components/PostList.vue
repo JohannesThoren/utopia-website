@@ -95,5 +95,6 @@ export default {
 #list {
 	display: grid;
 	gap: 15px;
+	margin-bottom: 10px;
 }
 </style>
