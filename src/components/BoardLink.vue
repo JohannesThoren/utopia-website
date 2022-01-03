@@ -6,7 +6,7 @@
 		<div id="followers" class="center-item">
 			<i class="fas fa-user-friends"></i> {{ num_board_followers }}
 		</div>
-		<div v-if="$store.state.authorized">
+		<div v-if="$store.state.authorized && bool_show_follow_btn">
 			<button
 				class="btn center-item"
 				id="follow"
@@ -24,8 +24,8 @@
 				Unfollow
 			</button>
 		</div>
-		<div v-else><span>Followers</span></div>
-	</div>
+		<div v-else id="followers-text"><span>Followers</span></div>
+	</div> 
 </template>
 
 <script>
@@ -41,6 +41,7 @@ export default {
 		str_board_id: String,
 		num_board_followers: Number,
 		bool_user_following: Boolean,
+		bool_show_follow_btn: Boolean,
 	},
 	methods: {
 		async fn_follow(id) {
@@ -78,6 +79,7 @@ export default {
 #link {
 	text-decoration: none;
 }
+#followers-text {text-align: center;}
 
 #board_link {
 	display: grid;

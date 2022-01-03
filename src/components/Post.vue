@@ -89,8 +89,10 @@ export default {
 }
 
 #img {
+	max-width: 30vw;
 	max-height: 35vh;
 	margin: auto;
+	box-sizing: border-box;
 }
 
 

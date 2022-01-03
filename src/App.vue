@@ -88,5 +88,7 @@ export default {
 #view {
 	padding: var(--padding-small);
 	padding-top: 8vh;
+	width: 90vw;
+	margin: auto;
 }
 </style>

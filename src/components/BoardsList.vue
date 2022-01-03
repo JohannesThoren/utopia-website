@@ -13,6 +13,7 @@ http://mozilla.org/MPL/2.0/.
 					:str_board_name="board.name"
 					:str_board_id="board.id"
 					:num_board_followers="board.followers"
+					:bool_show_follow_btn="true"
 				/>
 			</li>
 		</ul>

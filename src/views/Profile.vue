@@ -134,7 +134,7 @@ export default {
 }
 #wrapper {
 	display: grid;
-	grid-template-columns: 0.5fr 1fr 0.5fr;
+	grid-template-columns: 25vw 40vw 25vw;
 	gap: 10px;
 }
 .title {

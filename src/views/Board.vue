@@ -61,7 +61,7 @@ containing the board title and description.
 			>
 				<i class="fas fa-pencil-alt"></i> New Post
 			</button>
-			<PostList @new-post="b_show_new_post = true" :post_list="arr_posts" />
+			<PostList id="list" @new-post="b_show_new_post = true" :post_list="arr_posts" />
 			<NewPost
 				v-if="b_show_new_post"
 				@close-new-post="b_show_new_post = false"
@@ -167,7 +167,7 @@ export default {
 <style scoped>
 #board {
 	display: grid;
-	grid-template-columns: 0.5fr 1fr 0.5fr;
+	grid-template-columns: 25vw 40vw 25vw;
 	gap: 10px;
 }
 
