@@ -124,4 +124,5 @@ export default {
 }
 
 #info {max-height: 250px;}
+.card-content {padding: var(--padding-large)}
 </style>

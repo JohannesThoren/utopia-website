@@ -9,7 +9,7 @@ http://mozilla.org/MPL/2.0/.
 			<router-link to="/" class="title">Utopia</router-link> 
 		</div>
 		<div class="wrapper">
-			<input type="text" id="search" class="input" placeholder="Search Utopia Forums..."/>
+			<SearchBar/>
 		</div>
 		<div class="wrapper">
 			<button v-if="$store.state.authorized" @click="$emit('show-new-board')" class="btn">New Board</button>
@@ -25,11 +25,13 @@ http://mozilla.org/MPL/2.0/.
 
 <script>
 import AvatarMenu from "../components/AvatarMenu.vue";
+import SearchBar from "../components/SearchBar.vue"
 
 export default {
 	name: "SiteHeader",
 	components: {
 		AvatarMenu,
+		SearchBar
 	},
 };
 </script>
