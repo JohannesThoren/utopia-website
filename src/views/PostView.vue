@@ -34,23 +34,28 @@
 			</div>
 
 			<details v-if="$store.state.authorized" class="card" id="new-comment">
-				<summary class="card-header">
-					Add a comment
-				</summary>
+				<summary class="card-header">Add a comment</summary>
 				<div class="card-content">
-					<textarea id="comment-field" class="text-area" placeholder="comment..."></textarea>
+					<textarea
+						id="comment-field"
+						class="text-area"
+						placeholder="comment..."
+					></textarea>
 					<button class="btn" id="publish-btn">Publish Comment</button>
 				</div>
 			</details>
+
+			<CommentList :post_id="$route.params.id" />
 		</span>
 	</div>
 </template>
 
 <script>
 import { api_get_call } from "../api_calls";
+import CommentList from "../components/CommentList.vue";
 export default {
 	name: "PostView",
-	components: {},
+	components: { CommentList },
 	data() {
 		return {
 			post: "",
@@ -84,8 +89,13 @@ export default {
 </script>
 
 <style scoped>
-.card {min-height: 0px;}
+.card {
+	min-height: 0px;
+}
 
+#comments {
+	margin-top: 10px;
+}
 #publish-btn {
 	width: 100%;
 }
@@ -98,7 +108,6 @@ export default {
 
 #new-comment {
 	margin-top: 0.625rem;
-
 }
 
 #wrapper {
@@ -128,6 +137,10 @@ export default {
 	justify-content: center;
 }
 
-#info {max-height: 15.625rem;}
-.card-content {padding: var(--padding-large)}
+#info {
+	max-height: 20vh;
+}
+.card-content {
+	padding: var(--padding-large);
+}
 </style>
