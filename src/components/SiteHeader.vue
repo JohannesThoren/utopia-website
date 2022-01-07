@@ -15,16 +15,16 @@ http://mozilla.org/MPL/2.0/.
 			<search-bar id="search" />
 		</div>
 
-		<div>
-			<div class="right" v-if="$store.state.authorized">
+		<div class="right">
+			<div class="right user-control" v-if="$store.state.authorized">
 				<button
 					v-if="$store.state.authorized"
 					@click="$emit('show-new-board')"
-					class="btn"
+					class="btn user-control"
 				>
 					New Board
 				</button>
-				<avatar-menu />
+				<avatar-menu class="user-control"/>
 			</div>
 			<div v-else class="btn-group">
 				<button class="btn" @click="$emit('show-signin')">Sign In</button>
@@ -34,28 +34,6 @@ http://mozilla.org/MPL/2.0/.
 			</div>
 		</div>
 	</div>
-	<!-- <div id="header">
-		<div class="wrapper">
-			<router-link to="/" class="title">Utopia</router-link>
-		</div>
-		<div class="wrapper">
-			<SearchBar id="search" />
-		</div>
-		<button
-			v-if="$store.state.authorized"
-			@click="$emit('show-new-board')"
-			class="btn"
-		>
-			New Board
-		</button>
-		<AvatarMenu v-if="$store.state.authorized" id="avatar" />
-		<div v-else class="btn-group">
-			<button class="btn" @click="$emit('show-signin')">Sign In</button>
-			<button class="btn btn-hollow" @click="$emit('show-signup')">
-				Sign Up
-			</button>
-		</div>
-	</div> -->
 </template>
 
 <script>
@@ -74,7 +52,6 @@ export default {
 <style scoped>
 #search {
 	box-sizing: border-box;
-	width: 100%;
 }
 
 #header {
@@ -86,15 +63,16 @@ export default {
 	width: 100vw;
 	z-index: 60;
 	align-items: center;
-	gap: 0.625rem;
 }
 
 .right {
 	display: flex;
 	align-items: center;
+	margin-inline: auto;
 }
 
-.right * {
-	margin-inline: auto;
+.right .user-control {
+	display: flex;
+	gap: 0.625rem;
 }
 </style>

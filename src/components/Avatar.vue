@@ -17,7 +17,7 @@ img {
 	/* object-fit: contain; */
 	aspect-ratio: 1/1;
 	border-radius: 100%;
-	border: 0.0313rem solid var(--accent-1);
+	border: 0.5008px solid var(--accent-1);
 }
 
 .avatar {
@@ -27,11 +27,12 @@ img {
 	grid-template-columns: 0.5fr 1.5fr;
 	height: 100%;
 	width: 200px;
-	max-height: 40px;
+	max-height: 2.5rem;
 	align-items: center;
-	border: 0.5008px solid var(--accent-2);
+	border: 0.0313rem solid var(--accent-2);
 	border-radius: var(--radius);
 	padding: var(--padding-small);
+	background-color: white;
 }
 </style>
 

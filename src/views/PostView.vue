@@ -33,12 +33,15 @@
 				</div>
 			</div>
 
-			<div v-if="$store.state.authorized" class="card" id="new-comment">
+			<details v-if="$store.state.authorized" class="card" id="new-comment">
+				<summary class="card-header">
+					Add a comment
+				</summary>
 				<div class="card-content">
 					<textarea id="comment-field" class="text-area" placeholder="comment..."></textarea>
 					<button class="btn" id="publish-btn">Publish Comment</button>
 				</div>
-			</div>
+			</details>
 		</span>
 	</div>
 </template>
@@ -81,37 +84,39 @@ export default {
 </script>
 
 <style scoped>
+.card {min-height: 0px;}
+
 #publish-btn {
 	width: 100%;
 }
 
 #comment-field {
 	width: 100%;
-	height: 100px;
+	height: 6.25rem;
 	box-sizing: border-box;
 }
 
 #new-comment {
-	margin-top: 10px;
+	margin-top: 0.625rem;
 
 }
 
 #wrapper {
 	display: grid;
 	grid-template-columns: 25vw 40vw 25vw;
-	gap: 10px;
+	gap: 0.625rem;
 }
 
 .card-header {
 	padding: var(--padding-medium);
-	gap: 10px;
+	gap: 0.625rem;
 }
 
 #post-image {
 	margin: auto;
 	width: auto;
 	max-width: 100%;
-	max-height: 700px;
+	max-height: 43.75rem;
 	border: inherit;
 
 	box-sizing: border-box;
@@ -123,6 +128,6 @@ export default {
 	justify-content: center;
 }
 
-#info {max-height: 250px;}
+#info {max-height: 15.625rem;}
 .card-content {padding: var(--padding-large)}
 </style>

@@ -64,6 +64,6 @@ export default {
 #home {
 	display: grid;
 	grid-template-columns: 25vw 40vw 25vw;
-	gap: 10px;
+	gap: 0.625rem;
 }
 </style>

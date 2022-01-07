@@ -112,7 +112,7 @@ export default {
 	display: flex;
 	align-items: center;
 	box-shadow: var(--shadow);
-	gap: 10px;
+	gap: 0.625rem;
 }
 
 .title {

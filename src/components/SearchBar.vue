@@ -1,21 +1,29 @@
 <template>
-	<div @mouseover="hover = true" @mouseleave="hover = false">
-		<input
-			type="text"
-			id="search"
-			class="input"
-			placeholder="Search Utopia Forums..."
-			v-model="searchQuery"
-			autocomplete="off"
-			@input="getResults"
-		/>
-		<ul class="card" id="results" v-if="hover">
-			<li class="top-item">Search result for "<span class="ok-fg">{{searchQuery}}</span>"</li>
-			<li v-for="result in results" :key="result.name">
-				<board-link @click="$router.go()" :str_board_name="result.name" :str_board_id="result.id" :num_board_followers="result.followers" :bool_show_follow_btn="false"/>
-			</li>
-		</ul>
-	</div>
+	<div id="background" v-if="showResults" @click="showResults = false"></div>
+	<input
+		type="text"
+		id="search"
+		class="input"
+		placeholder="Search Utopia Forums..."
+		v-model="searchQuery"
+		autocomplete="off"
+		@input="getResults"
+		@click="showResults = true"
+	/>
+	<ul class="card" id="results" v-if="showResults">
+		<li class="top-item">
+			Search result for "<span class="ok-fg">{{ searchQuery }}</span
+			>"
+		</li>
+		<li v-for="result in results" :key="result.name" @click="$router.go('/b/'+result.id); showResults=false">
+			<board-link
+				:str_board_name="result.name"
+				:str_board_id="result.id"
+				:num_board_followers="result.followers"
+				:bool_show_follow_btn="false"
+			/>
+		</li>
+	</ul>
 </template>
 
 <script>
@@ -29,7 +37,7 @@ export default {
 	data() {
 		return {
 			results: {},
-			hover: false,
+			showResults: false,
 			searchQuery: "",
 		};
 	},
@@ -58,11 +66,33 @@ export default {
 </script>
 
 <style scoped>
-.top-item {color: lightgray; font-size: 1.2em; text-align: center}
+.top-item {
+	color: lightgray;
+	font-size: 1.2em;
+	text-align: center;
+}
+#background {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: 500;
+	background-color: rgba(10, 10, 10, 0.8);
+}
+
 #search {
 	z-index: 100;
 	width: 50vw;
 	box-sizing: border-box;
+	z-index: 1000;
+	background-color: white;
+}
+
+#search:focus {
+	position: relative;
+	box-sizing: border-box;
+	z-index: 1000;
 }
 
 #results {
@@ -71,9 +101,10 @@ export default {
 	padding: var(--padding-small);
 	list-style-type: none;
 	margin: 0;
-	width:59.50rem;
-	max-height: 400px;
+	width: 50vw;
+	max-height: 25rem;
 	overflow-y: scroll;
+	box-sizing: border-box;
+	z-index: 1000;
 }
-
 </style>

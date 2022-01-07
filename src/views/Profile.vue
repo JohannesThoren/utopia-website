@@ -118,35 +118,35 @@ export default {
 	padding: var(--padding-small);
 	white-space: pre-line;
 	font: var(--font);
-	border-left: 4px solid var(--accent-2);
-	margin: 0px;
-	max-height: 200px;
+	border-left: 0.25rem solid var(--accent-2);
+	margin: 0rem;
+	max-height: 12.5rem;
 	overflow-y: scroll;
 	overflow-x: wrap;
 }
 
 #img {
-	width: 200px;
-	height: 200px;
-	border: 2px solid var(--accent-1);
+	width: 12.5rem;
+	height: 12.5rem;
+	border: 0.125rem solid var(--accent-1);
 	border-radius: 100%;
-	margin: 10px;
+	margin: 0.625rem;
 }
 #wrapper {
 	display: grid;
 	grid-template-columns: 25vw 40vw 25vw;
-	gap: 10px;
+	gap: 0.625rem;
 }
 .title {
-	margin: 0px;
+	margin: 0rem;
 }
 
 #board {
 	display: grid;
 	align-items: center;
 	grid-template-columns: 1fr 1fr;
-	margin-top: 5px;
-	margin-bottom: 5px;
+	margin-top: 0.3125rem;
+	margin-bottom: 0.3125rem;
 }
 
 .board-name {

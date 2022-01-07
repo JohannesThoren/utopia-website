@@ -49,16 +49,17 @@ export default {
 </script>
 
 <style scoped>
-.card {min-height: 0px;}
-li {margin-top: 5px; margin-bottom: 5px;}
+.card {min-height: 0rem;}
+li {margin-top: 0.3125rem; margin-bottom: 0.3125rem;}
 
 #avatar {
 	z-index: 100;
 }
 
 #menu {
+	top: 50px;
 	position: fixed;
-	border: 0.0313rem solid var(--accent-2);
+	border: 0.5008px solid var(--accent-2);
 	height: fit-content;
 	padding: var(--padding-small);
 	list-style-type: none;

@@ -168,16 +168,16 @@ export default {
 #board {
 	display: grid;
 	grid-template-columns: 25vw 40vw 25vw;
-	gap: 10px;
+	gap: 0.625rem;
 }
 
 #description {
 	padding: var(--padding-small);
 	white-space: pre-line;
 	font: var(--font);
-	border-left: 4px solid var(--accent-2);
-	margin: 0px;
-	max-height: 200px;
+	border-left: 0.25rem solid var(--accent-2);
+	margin: 0rem;
+	max-height: 12.5rem;
 	overflow-y: scroll;
 	overflow-x: wrap;
 }
@@ -189,7 +189,7 @@ export default {
 
 #add-btn {
 	width: 100%;
-	margin-bottom: 10px;
+	margin-bottom: 0.625rem;
 }
 
 @media screen {
