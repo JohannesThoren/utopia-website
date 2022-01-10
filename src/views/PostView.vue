@@ -40,8 +40,11 @@
 						id="comment-field"
 						class="text-area"
 						placeholder="comment..."
+						v-model="comment"
 					></textarea>
-					<button class="btn" id="publish-btn">Publish Comment</button>
+					<button class="btn" id="publish-btn" @click="publish_comment">
+						Publish Comment
+					</button>
 				</div>
 			</details>
 
@@ -51,7 +54,7 @@
 </template>
 
 <script>
-import { api_get_call } from "../api_calls";
+import { api_get_call, api_post_call } from "../api_calls";
 import CommentList from "../components/CommentList.vue";
 export default {
 	name: "PostView",
@@ -59,9 +62,9 @@ export default {
 	data() {
 		return {
 			post: "",
-
 			authorName: "",
 			boardName: "",
+			comment: "",
 		};
 	},
 	async created() {
@@ -84,6 +87,21 @@ export default {
 
 		this.authorName = author.username;
 		this.boardName = board.name;
+	},
+	methods: {
+		async publish_comment() {
+			let token = this.$cookie.get("token");
+			let body = { comment: this.comment, token: token };
+			if (this.comment != "") {
+				let response = await api_post_call(
+					body,
+					this.$store.state.api_root,
+					`/post/${this.$route.params.id}/comment`
+				);
+				console.log(response)
+				this.$router.go()
+			}
+		},
 	},
 };
 </script>

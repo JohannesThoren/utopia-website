@@ -18,16 +18,22 @@ export default {
 	components: { Comment },
 	data() {
 		return {
-			comments: {},
+			comments: [],
 		};
 	},
 	props: { post_id: String },
 
 	async created() {
-		this.comments = await api_get_call(
+		let response = await api_get_call(
 			this.$store.state.api_root,
 			`/post/${this.post_id}/get/comments`
 		);
+
+		for(let comment in response) {
+			this.comments.push(response[comment])
+		}
+		this.comments.reverse();
+
 	},
 };
 </script>
