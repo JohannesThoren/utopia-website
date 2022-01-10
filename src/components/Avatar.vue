@@ -58,6 +58,7 @@ export default {
 		);
 		this.username = data["username"];
 		this.profile_picture = data["profile_picture"];
+
 	},
 };
 </script>

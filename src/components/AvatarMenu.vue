@@ -42,9 +42,6 @@ export default {
 			this.$router.go();
 		},
 	},
-	mounted() {
-		console.log(this.avatar_width);
-	},
 };
 </script>
 

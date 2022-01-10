@@ -1,6 +1,8 @@
 
 <template>
 	<ul ref="list">
+		<p class="center-text warning-fg">{{ err }}</p>
+		<p class="center-text">{{ msg }}</p>
 		<li v-for="comment in computed_comments" :key="comment.id">
 			<Comment
 				:user_id="comment.user"
@@ -21,6 +23,8 @@ export default {
 			comments_to_load: [],
 			comments: [],
 			comment_index: 0,
+			msg: "",
+			err: "",
 		};
 	},
 	props: { post_id: String },
@@ -28,15 +32,19 @@ export default {
 	async created() {
 		let response = await api_get_call(
 			this.$store.state.api_root,
-			`/post/${this.post_id}/get/comments`
+			`post/${this.post_id}/get/comments`
 		);
 
-		for (let comment in response) {
-			this.comments.push(response[comment]);
+		if (response["response code"] != 404) {
+			for (let comment in response) {
+				this.comments.push(response[comment]);
+			}
+			this.comments.reverse();
+			this.loadInitial();
+		} else {
+			this.msg = response.msg;
+			this.err = response.err;
 		}
-		this.comments.reverse();
-
-		this.loadInitial();
 	},
 	mounted() {
 		window.addEventListener("scroll", this.handleScroll);

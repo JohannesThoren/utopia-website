@@ -5,7 +5,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 <template>
-  <div>
+  <div @keydown.enter="signup()">
     <div id="background" @click="$emit('close-signup')"></div>
 
     <div id="signup" class="card">

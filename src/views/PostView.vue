@@ -10,14 +10,14 @@
 			<div class="card-header center-text title">Info</div>
 			<div class="card-content">
 				<p>
-					Author:
-					<router-link :to="'/p/' + post.author">{{ authorName }}</router-link>
-				</p>
-				<p>
 					Board:
 					<router-link :to="'/b/' + post.board">{{ boardName }}</router-link>
 				</p>
-				<p>Posted: {{ post["created"] }}</p>
+				<p>
+					<i class="fas fa-user"></i> Author:
+					<router-link :to="'/p/' + post.author">{{ authorName }}</router-link>
+				</p>
+				<p><i class="far fa-clock"></i> Posted: {{ post["created"] }}</p>
 			</div>
 		</div>
 		<span>
@@ -33,22 +33,31 @@
 				</div>
 			</div>
 
-			<details v-if="$store.state.authorized" class="card" id="new-comment">
-				<summary class="card-header">Add a comment</summary>
-				<div class="card-content">
-					<textarea
-						id="comment-field"
-						class="text-area"
-						placeholder="comment..."
-						v-model="comment"
-					></textarea>
-					<button class="btn" id="publish-btn" @click="publish_comment">
-						Publish Comment
-					</button>
-				</div>
-			</details>
+			<details class="card" id="comments">
+				<summary class="card-header">Show Comments</summary>
 
-			<CommentList :post_id="$route.params.id" />
+				<div v-if="$store.state.authorized" class="card" id="new-comment">
+					<div class="card-content">
+						<p class="center-text">{{ comment_msg }}</p>
+						<p class="center-text warning-fg">{{ comment_err }}</p>
+						<textarea
+							id="comment-field"
+							class="text-area"
+							placeholder="comment..."
+							v-model="comment"
+						></textarea>
+						<p v-if="comment_len <= 500">{{ comment_len }}/500</p>
+						<p v-if="comment_len > 500" class="warning-fg">
+							{{ comment_len }}/500
+						</p>
+
+						<button class="btn" id="publish-btn" @click="publish_comment">
+							Publish Comment
+						</button>
+					</div>
+				</div>
+				<CommentList :post_id="$route.params.id" />
+			</details>
 		</span>
 	</div>
 </template>
@@ -65,16 +74,21 @@ export default {
 			authorName: "",
 			boardName: "",
 			comment: "",
+
+			comment_err: "",
+			comment_msg: "",
 		};
+	},
+	computed: {
+		comment_len() {
+			return this.comment.length;
+		},
 	},
 	async created() {
 		this.post = await api_get_call(
 			this.$store.state.api_root,
 			"post/" + this.$route.params.id
 		);
-		console.log(this.post);
-
-		console.log(this.post.author);
 		let author = await api_get_call(
 			this.$store.state.api_root,
 			`/user/get/id/${this.post.author}`
@@ -98,8 +112,13 @@ export default {
 					this.$store.state.api_root,
 					`/post/${this.$route.params.id}/comment`
 				);
-				console.log(response)
-				this.$router.go()
+
+				if (response["response code"] != 200) {
+					this.comment_err = response.err;
+					this.comment_msg = response.msg;
+				} else {
+					this.$router.go();
+				}
 			}
 		},
 	},

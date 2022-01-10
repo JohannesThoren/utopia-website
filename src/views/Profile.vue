@@ -86,8 +86,6 @@ export default {
 		);
 		for (let board in boards) {
 			this.boards.push(boards[board]);
-			console.log(boards[board]);
-			console.log(this.boards[0].name);
 		}
 
 		let posts = await api_get_call(

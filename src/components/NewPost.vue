@@ -16,19 +16,10 @@ http://mozilla.org/MPL/2.0/.
 					Post type: <span class="ok-fg">{{ str_post_flag }}</span>
 				</div>
 				<div class="btn-group">
-					<button @click="fn_change_flag('TEXT')" class="btn">
-						Text
-					</button>
-					<button @click="fn_change_flag('IMAGE')" class="btn">
-						Image
-					</button>
+					<button @click="fn_change_flag('TEXT')" class="btn">Text</button>
+					<button @click="fn_change_flag('IMAGE')" class="btn">Image</button>
 				</div>
-				<input
-					v-model="title"
-					class="input"
-					type="text"
-					placeholder="Title"
-				/>
+				<input v-model="title" class="input" type="text" placeholder="Title" />
 				<input
 					v-if="str_post_flag == 'IMAGE'"
 					type="text"
@@ -47,16 +38,13 @@ http://mozilla.org/MPL/2.0/.
 				></textarea>
 				<div class="center-text">
 					<span v-if="text_length <= $store.state.postMaxChars"
-						>{{ text_length }}/{{
-							$store.state.postMaxChars
-						}}
-						Characters</span
+						>{{ text_length }}/{{ $store.state.postMaxChars }} Characters</span
 					>
 					<span
 						class="warning-fg"
 						v-if="text_length > $store.state.postMaxChars"
-						>{{ text_length }}/{{ $store.state.postMaxChars }} to
-						many characters!
+						>{{ text_length }}/{{ $store.state.postMaxChars }} to many
+						characters!
 					</span>
 				</div>
 				<button class="btn" @click="post">Post</button>

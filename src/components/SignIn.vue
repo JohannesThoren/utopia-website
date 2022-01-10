@@ -5,7 +5,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 <template>
-	<div>
+	<div @keydown.enter="login([username, password])">
 		<div id="background" @click="$emit('close-signin')"></div>
 
 		<div id="signin" class="card">

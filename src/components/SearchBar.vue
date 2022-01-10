@@ -47,9 +47,6 @@ export default {
 			if (this.searchQuery == "") {
 				this.results = {};
 			}
-
-			console.log(this.searchQuery);
-
 			let data = await api_get_call(
 				this.$store.state.api_root,
 				`/search/boards/${this.searchQuery}`
