@@ -9,19 +9,27 @@ import store from "./index"
 // import app from '../main'
 
 export default {
-      // actions
+
+      //  login action, used to sign in the user.
       async loginAction(context, payload) {
+
+            // first we get the username a and password from the payload
             const TokenBody = { "username": payload[0], "password": payload[1] }
-            const Token = await api_post_call(TokenBody, store.state.api_root, "user/auth")
 
-            if (Token["token"] != undefined) {
+            // we then send that to the api server and in response get the user + token, if the credentials check out
+            const User = await api_post_call(TokenBody, store.state.api_root, "user/auth")
 
-                  const TmpToken = Token["token"]
+            // we then checks if the token exists (aka if the credentials checked out)
+            if (User["token"] !== undefined) {
 
-                  document.cookie = `token=${TmpToken}`
+                  const Token = Token["token"]
+                  // here we create the token cookie
+                  document.cookie = `token=${Token}`
 
-                  const UserData = await api_get_call(store.state.api_root, `user/get/token/${TmpToken}`)
+                  // Get all user data with the token
+                  const UserData = await api_get_call(store.state.api_root, `user/get/token/${Token}`)
 
+                  // Commits to the store that the user is authorized and the user daya
                   store.commit('authorized')
                   store.commit('set_user', [UserData["id"], UserData["username"], UserData["image"]])
                   

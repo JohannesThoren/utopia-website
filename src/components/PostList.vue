@@ -40,27 +40,42 @@ export default {
 		post_list: Array,
 	},
 	mounted() {
-		window.addEventListener("scroll", this.handleScroll);
+		// creates an event listener on mount
+    window.addEventListener("scroll", this.handleScroll);
 	},
 	unmounted() {
+    // removes the event listener created in mounted()
 		window.removeEventListener("scroll", this.handleScroll);
 	},
 	methods: {
+    // loads the initial
 		loadInitial() {
+      // check if post_list[0] == null (not the best approach but an approach)
+      // that means that if the 0'th index is null the list is empty or not initialized
+      // and we need to wait for it to get initialized or created.
+      // which happens in the component calling this component.
 			if (this.post_list[0] == null) {
 				setTimeout(() => {
+
+          // wait 200 ms and then call the loadMore function 5 times, to load 5 posts.
 					for (let i = 0; i < 5; i++) {
-						this.loadMore()
+						this.loadMore();
 					}
 				}, 200);
-			} else {
-				for (let i = 0; i < 5; i++) {
+			}
+      // if the post_list is initialized we just loads 5 posts by calling loadMore() 5 times
+      else {
+        for (let i = 0; i < 5; i++) {
 					this.loadMore();
 				}
 			}
 		},
 		loadMore() {
-			if (this.post_index != this.post_list.length) {
+      // this function loads one more post, so it can be displayed on the screen,
+      // it checks if the post_index is not the length of the array,
+      // and pushes a post to the post_to_load array.
+      // else it will do nothing
+			if (this.post_index !== this.post_list.length) {
 				this.posts_to_load.push(this.post_list[this.post_index]);
 				if (this.post_index < this.post_list.length) {
 					this.post_index += 1;
@@ -69,7 +84,11 @@ export default {
 		},
 
 		handleScroll() {
+      // gets the listElement reference
 			let listElement = this.$refs.list;
+
+      // if the window innerHeight  is the same as the bounding client rect
+      // we load more posts. the window inner height changes when we scroll
 			if (listElement.getBoundingClientRect().bottom < window.innerHeight) {
 				this.loadMore();
 			}

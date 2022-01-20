@@ -24,7 +24,7 @@ export async function api_get_call(str_api_root, str_call_path) {
  * @param {JSON} json_body 
  * @param {String} str_api_root 
  * @param {String} str_call_path 
- * @returns A Message or some json data depending on waht the api call is 
+ * @returns A Message or some json data depending on what you call.
  */
 export async function api_post_call(json_body, str_api_root, str_call_path) {
     const response = await axios.post(str_api_root + str_call_path, JSON.stringify(json_body));

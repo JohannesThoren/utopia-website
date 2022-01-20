@@ -1,6 +1,6 @@
 <template>
 	<div id="background" v-if="showResults" @click="showResults = false"></div>
-	<input 
+	<input
 		type="text"
 		id="search"
 		class="input"
@@ -15,7 +15,14 @@
 			Search result for "<span class="ok-fg">{{ searchQuery }}</span
 			>"
 		</li>
-		<li v-for="result in results" :key="result.name" @click="showResults=false; $router.go()">
+		<li
+			v-for="result in results"
+			:key="result.name"
+			@click="
+				showResults = false;
+				$router.go();
+			"
+		>
 			<board-link
 				:str_board_name="result.name"
 				:str_board_id="result.id"

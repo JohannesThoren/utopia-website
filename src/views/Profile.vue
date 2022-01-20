@@ -13,7 +13,7 @@ http://mozilla.org/MPL/2.0/.
 				</div>
 				<div class="card-content">
 					<div class="center-text">
-						<img id="img" alt="profile picture" :src="profile_picture"/>
+						<img id="img" alt="profile picture" :src="profile_picture" />
 					</div>
 					<pre id="info" class="background-accent-2">
 					<span class="subtitle">Info</span>
@@ -87,7 +87,8 @@ export default {
 		for (let board in boards) {
 			this.boards.push(boards[board]);
 		}
-
+	},
+	async mounted() {
 		let posts = await api_get_call(
 			this.$store.state.api_root,
 			`user/${this.$route.params.id}/get/posts`

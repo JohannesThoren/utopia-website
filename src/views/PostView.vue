@@ -133,6 +133,11 @@ export default {
 #comments {
 	margin-top: 10px;
 }
+
+#comments:hover {
+	cursor: pointer;
+}
+
 #publish-btn {
 	width: 100%;
 }
@@ -175,7 +180,7 @@ export default {
 }
 
 #info {
-	max-height: 20vh;
+	max-height: max(18.75rem, 40vh);;
 }
 .card-content {
 	padding: var(--padding-large);

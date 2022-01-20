@@ -39,7 +39,9 @@ containing the board title and description.
 						$store.state.authorized
 					"
 				>
-					<router-link class="btn" :to="'/b/'+str_board_id+'/edit'">Edit Board</router-link>
+					<router-link class="btn" :to="'/b/' + str_board_id + '/edit'"
+						>Edit Board</router-link
+					>
 
 					<router-link
 						to="/"
@@ -61,7 +63,11 @@ containing the board title and description.
 			>
 				<i class="fas fa-pencil-alt"></i> New Post
 			</button>
-			<PostList id="list" @new-post="b_show_new_post = true" :post_list="arr_posts" />
+			<PostList
+				id="list"
+				@new-post="b_show_new_post = true"
+				:post_list="arr_posts"
+			/>
 			<NewPost
 				v-if="b_show_new_post"
 				@close-new-post="b_show_new_post = false"
@@ -142,7 +148,8 @@ export default {
 				`user/get/token/${this.$cookie.get("token")}`
 			);
 		}
-
+	},
+	async mounted() {
 		// get the posts for the board
 		let posts = await api_get_call(
 			this.$store.state.api_root,

@@ -55,16 +55,27 @@ export default {
 		};
 	},
 	async created() {
+    // when the component is created we try to fetch the token from the cookies
 		let token = this.$cookie.get("token");
+
+    // if there is a token cookie we try to authorize a user with that cookie
 		if (token != null) {
+
+      // here we send a token_authorize request to the server
 			let data = await token_authorize(token, this.$store.state.api_root);
+
+      // if the response code we get back is 200
 			if (data["response code"] == 200) {
+
+        // we authorize the user and sets the user in the store
 				this.$store.commit("authorized");
 				this.$store.commit("set_user", [
 					data["id"],
 					data["username"],
 					data["image"],
 				]);
+
+        // then updates the token (you get a new token every time you sign in)
 				this.$cookie.set("token", data["token"]);
 			}
 		}
@@ -87,7 +98,7 @@ export default {
 }
 #view {
 	padding: var(--padding-small);
-	padding-top: 8vh;
+	padding-top: 5rem;
 	width: 90vw;
 	margin: auto;
 }

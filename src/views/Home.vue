@@ -31,14 +31,7 @@ export default {
 		};
 	},
 	async created() {
-		const data = await api_get_call(
-			this.$store.state.api_root,
-			`/get/100/global/posts`
-		);
 
-		for (var index in data) {
-			this.posts.push(data[index]);
-		}
 
 		const boards_new = await api_get_call(
 			this.$store.state.api_root,
@@ -54,6 +47,16 @@ export default {
 			this.top_boards.push(boards_top[board])
 		}
 	},
+	async mounted() {
+		const data = await api_get_call(
+			this.$store.state.api_root,
+			`/get/100/global/posts`
+		);
+
+		for (var index in data) {
+			this.posts.push(data[index]);
+		}
+	}
 };
 </script>
 
